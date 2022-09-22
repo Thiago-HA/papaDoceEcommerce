@@ -1,0 +1,88 @@
+body{
+    background-color:rgb(255, 255, 255);
+}
+
+
+/************* IMAGENS *************/
+#icon-lupa{
+    width: 30px;
+}
+#logo-papa{
+    width: 100px;
+}
+#icon-carrinho{
+    width: 30px;
+}
+#icon-fav{
+    width: 30px;
+}
+/*************  *************/
+.d-flex{
+    width: 300px;
+}
+.navbar {
+    width: 80%;
+
+}
+/*div por de baixo do navbar*/
+.container-nav{
+    width: 100%;
+    background-color: #0d6efd;
+    display: flex;
+    justify-content: center;
+}
+
+/*container do menu navbar*/
+.container-nav {
+    border-bottom: solid 3px black;
+}
+
+/**/
+.menu-principal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* altera conteiner onde fica os botões do carrinho de compra e favoritos*/
+.div-flex-icones{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+/* altera botões do carrinho de compra e de favoritos*/
+.btn-icones{
+    padding-left:12px;
+    padding-left:12px;
+    padding-top:6px;
+    padding-bottom:6px;
+    height: 44px;
+}
+
+
+.itens-carrinho{
+    display: flex;
+    align-items: center;
+}
+.bola-nunmber{
+    background-color: red;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: aliceblue;
+}
+
+
+@media (max-width: 992px){
+    .navbar {
+        width: 100%;
+    }
+    .d-flex{
+        width: auto;
+    }
+}
