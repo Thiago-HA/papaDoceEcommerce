@@ -16,9 +16,20 @@ body{
 #icon-fav{
     width: 30px;
 }
-/*************  *************/
+/**************************/
+
+/************* BUTTONS *************/
+
+.btn-icones{
+    background: none;
+    border: none;
+}
+
+
+/**************************/
 .d-flex{
     width: 300px;
+    width: 100%;
 }
 .navbar {
     width: 80%;
@@ -37,17 +48,26 @@ body{
     border-bottom: solid 3px black;
 }
 
-/**/
+/*Altera container que contem o menu baixo e o menu cima*/
 .menu-principal{
     display: flex;
     flex-direction: column;
-    align-items: center;
+}
+
+.manu-principal-cima{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.manu-principal-baixo{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
 /* altera conteiner onde fica os botões do carrinho de compra e favoritos*/
 .div-flex-icones{
     display: flex;
-    gap: 10px;
     align-items: center;
     margin-left: 10px;
     margin-right: 10px;
@@ -81,8 +101,5 @@ body{
 @media (max-width: 992px){
     .navbar {
         width: 100%;
-    }
-    .d-flex{
-        width: auto;
     }
 }
