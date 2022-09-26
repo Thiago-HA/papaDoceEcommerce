@@ -9,6 +9,7 @@ body{
 }
 #logo-papa{
     width: 200px;
+    margin: 12px;
 }
 #icon-carrinho{
     width: 30px;
@@ -25,6 +26,30 @@ body{
     border: none;
 }
 
+/*carrinho de compra e de favoritos*/
+.btn-icones{
+    padding-left:12px;
+    padding-left:12px;
+    padding-top:6px;
+    padding-bottom:6px;
+    height: 44px;
+}
+
+
+.itens-carrinho{
+    display: flex;
+    align-items: center;
+}
+.bola-nunmber{
+    background-color: red;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: aliceblue;
+}
 
 /**************************/
 .d-flex{
@@ -71,6 +96,21 @@ body{
     width: 100%;
 }
 
+/*Altera a lista dos links das paginas do menu:*/
+.lista-link-menu li :hover{
+    background-color:#0546a7;
+    border-radius: 5px;
+}
+.lista-link-menu li a{
+    font-size: 20px;
+}
+.navbar-nav{
+    gap: 12px;
+}
+.minha-conta{
+    font-size: 20px;
+}
+
 /* altera conteiner onde fica os botões do carrinho de compra e favoritos*/
 .div-flex-icones{
     display: flex;
@@ -78,30 +118,7 @@ body{
     margin-left: 10px;
     margin-right: 10px;
     margin: 0px;
-}
-/* altera botões do carrinho de compra e de favoritos*/
-.btn-icones{
-    padding-left:12px;
-    padding-left:12px;
-    padding-top:6px;
-    padding-bottom:6px;
-    height: 44px;
-}
-
-
-.itens-carrinho{
-    display: flex;
-    align-items: center;
-}
-.bola-nunmber{
-    background-color: red;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: aliceblue;
+    gap: 10px;
 }
 
 

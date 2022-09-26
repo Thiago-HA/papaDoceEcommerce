@@ -28,7 +28,7 @@
 
             </div>
             <div class="manu-principal-baixo">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0 lista-link-menu">
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
@@ -50,7 +50,7 @@
               <form class="div-flex-icones">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle minha-conta" href="#" id="navbarDropdown-2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Minha Conta
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -62,17 +62,17 @@
                   </li>
                 </ul>
 
-                <button class="btn btn-light btn-icones" type="submit">
+                <a class=" btn-icones button-fav" href="#">
                   <img src="{% static 'home/img/favoritos_icon.png' %}" id="icon-fav">
-                </button>
-                <button class="btn btn-light btn-icones btn-carrinho" type="submit">
+                </a>
+                <a class=" btn-icones button-carrinho" href="#">
                   <div class="itens-carrinho">
                     <img src="{% static 'home/img/carrinho_icon.png' %}" id="icon-carrinho">
                     <div class="bola-nunmber">
-                      <span class="number">0</span>
+                      <div class="number">0</div>
                     </div>
                   </div>
-                </button>
+                </a>
               </form>
             </div>
 
