@@ -126,4 +126,29 @@ body{
     .navbar {
         width: 100%;
     }
+
+    /*div por de baixo do navbar*/
+    .container-nav{
+        flex-direction: column;
+    }
+    .navbar-brand{
+        display: flex;
+        justify-content: center;
+    }
+
+    /*container que agloba barra de pesquisa do menu quanto ativa o botão navbar*/
+    .d-flex{
+        padding-top: 12px;
+    }
+
+    /**/
+    .manu-principal-baixo{
+        flex-direction: column-reverse;
+    }
+
+    /*container agrupa os icones favoritos e carrinho*/
+    .div-flex-icones{
+        align-items: start;
+    }
+
 }
