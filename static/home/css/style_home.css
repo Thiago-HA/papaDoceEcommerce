@@ -17,6 +17,10 @@ body{
 #icon-fav{
     width: 30px;
 }
+#logo-papa2{
+    display: none;
+}
+
 /**************************/
 
 /************* BUTTONS *************/
@@ -149,6 +153,15 @@ body{
     /*container agrupa os icones favoritos e carrinho*/
     .div-flex-icones{
         align-items: start;
+    }
+
+    /*IMAGENS:*/
+    #logo-papa2{
+        display: flex;
+        width: 100px;
+    }
+    #logo-papa{
+        display: none;
     }
 
 }
