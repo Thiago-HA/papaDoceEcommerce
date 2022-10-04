@@ -148,9 +148,16 @@ body{
     background-color:chartreuse;
     width: 80%;
     display: flex;
-    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 50px;
 }
 
+.produto-coontainer{
+    background-color: rgb(255, 0, 183)
+}
+.filtros-coontainer{
+    background-color:rgb(255, 64, 0);
+}
 
 /********* FOOTER:  *******/
 .footer{

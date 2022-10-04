@@ -86,21 +86,10 @@
     <main class="main-site">
       <selection class="conteudo-principal">
         <div class="coluna-filtro">
-          <p>oi</p>
+          {% block conteudoFiltros %}{% endblock conteudoFiltros %}
         </div>
         <div class="coluna-produtos">
-          <div class="produto">
-            <p>play</p>
-            <p>2reais</p>
-          </div>
-          <div class="produto">
-            <p>play</p>
-            <p>2reais</p>
-          </div>
-          <div class="produto">
-            <p>play</p>
-            <p>2reais</p>
-          </div>
+             {% block conteudo %} {% endblock %}
         </div>
       </selection>
     </main>
