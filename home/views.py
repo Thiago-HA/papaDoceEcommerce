@@ -38,4 +38,4 @@ def pagina_home(request):
     }
 
 
-    return render(request, 'produtosHome.html', context)
+    return render(request, 'home.html', context)
