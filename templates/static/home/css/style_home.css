@@ -133,19 +133,18 @@ body{
     justify-content: center;
 }
 .conteudo-principal{
-    background-color: aquamarine;
+    gap: 10px; 
     width: 90%;
     display: flex;
 }
 
 .coluna-filtro{
-    background-color: brown;
     width: 20%;
     display: flex;
-    justify-content: center;
+    justify-content: start;
+    flex-direction: column;
 }
 .coluna-produtos{
-    background-color:chartreuse;
     width: 80%;
     display: flex;
     flex-wrap: wrap;
@@ -153,10 +152,9 @@ body{
 }
 
 .produto-coontainer{
-    background-color: rgb(255, 0, 183)
+    
 }
 .filtros-coontainer{
-    background-color:rgb(255, 64, 0);
 }
 
 /********* FOOTER:  *******/

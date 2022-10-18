@@ -1,0 +1,14 @@
+.container-footer{
+    background-color: #272727;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+}
+
+.footer-principal{
+    color: rgb(255,255,255);
+    background: #5900ffb0;
+    width:80%;
+
+}
