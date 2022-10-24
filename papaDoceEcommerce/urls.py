@@ -20,7 +20,8 @@ from home.views import pagina_home
 
 
 urlpatterns = [
-    path('', pagina_home),
-    path('cadastro/', include('login.urls')),
+    path('', pagina_home, name='home'),
     path('admin/', admin.site.urls),
+    path('auth/', include('usuarios.urls')),
+
 ]

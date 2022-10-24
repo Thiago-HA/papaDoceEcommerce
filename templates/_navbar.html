@@ -1,7 +1,6 @@
 {% load static %}
-
 <div class="container-nav">
-    <a class="navbar-brand" href="./index.html"><img src="{% static 'home/img/logoPapaDoce.svg' %}" id="logo-papa"></a>
+    <a class="navbar-brand" href="{% url 'valida_user_home' %}"><img src="{% static 'home/img/logoPapaDoce.svg' %}" id="logo-papa"></a>
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
       <div class="container-fluid">
 
@@ -21,7 +20,7 @@
           <div class="manu-principal-baixo">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 lista-link-menu">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'valida_user_home' %}">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">Confeitaria</a>
@@ -41,15 +40,29 @@
             <form class="div-flex-icones">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle minha-conta" href="#" id="navbarDropdown-2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Minha Conta
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Perfil</a></li>
-                    <li><a class="dropdown-item" href="#">Meus Pedidos</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Sair</a></li>
-                  </ul>
+                  {% if status == '1' %}
+
+                        <a class="nav-link dropdown-toggle minha-conta" href="#" id="navbarDropdown-2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Bem vindo(a)
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <li><a class="dropdown-item" href="#">Perfil</a></li>
+                          <li><a class="dropdown-item" href="#">Meus Pedidos</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'sair' %}">Sair</a></li>
+                        </ul>
+                    
+                      {% else %}
+                          <a class="nav-link dropdown-toggle minha-conta" id="navbarDropdown-2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Entrar
+                          </a>
+                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'login' %}">Perfil</a></li>
+                            <li><a class="dropdown-item" href="{% url 'login' %}">Meus Pedidos</a></li>
+                          </ul>
+
+                    {% endif %}
+                  
                 </li>
               </ul>
 

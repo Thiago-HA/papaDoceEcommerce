@@ -6,7 +6,7 @@ from unittest.util import _MAX_LENGTH
 from django.db import models
 from datetime import date
 
-class Produtos(models.Model):
+class Produto(models.Model):
     titulo = models.CharField(max_length=300)
     imagem = models.ImageField(upload_to='img_produto', null=True, blank=True)
     favorito = models.BooleanField(default=False)
@@ -23,6 +23,3 @@ class Produtos(models.Model):
 
     def __str__(self) -> str:
         return self.titulo
-
-
-
