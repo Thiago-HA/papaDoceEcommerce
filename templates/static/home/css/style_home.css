@@ -148,12 +148,16 @@ body{
     width: 80%;
     display: flex;
     flex-wrap: wrap;
-    gap: 50px;
+    gap:5px;
 }
 
 .produto-coontainer{
-    
+    display:flex;
 }
+
+
+
+
 .filtros-coontainer{
     display: flex;
     border-bottom: solid black;
