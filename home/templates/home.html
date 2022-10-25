@@ -5,7 +5,7 @@
     Home
 {% endblock titulo %}
 
-{% block conteudoFiltros %}
+{% block 'conteudoFiltros' %}
     {% for i in filtros %}
         <div class="filtros-coontainer">
             <p>
@@ -13,21 +13,36 @@
             </p>
         </div>
     {% endfor %}
-{% endblock conteudoFiltros %}
+{% endblock %}
 
 
-{% block conteudo %}
-    {% for produtoi in produtos %}
+{% block 'conteudo' %}
+    
 
-        <div class="produto-coontainer">
-            <p>
-                {{produtoi.nome}}
-            </p>
-            <h1>
-                {{produtoi.preco}}
-            </h1>
-        </div>
+    <main class="main-site">
+        <selection class="conteudo-principal">
+          <div class="coluna-filtro">
+            filtros
+          </div>
+          <div class="coluna-produtos">
+            {% for produto in produtos %}
 
-    {% endfor %}
+                <div class="produto-coontainer">
+                    <p>
+                        {{produto.titulo}}
+                    </p>
+                    <h1>
+                        {{produto.preco}}
+                    </h1>
+                </div>
+
+            {% endfor %}
+          </div>
+        </selection>
+      </main>
+
+        
+
+    
 {% endblock %}
 

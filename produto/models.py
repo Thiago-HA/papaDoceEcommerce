@@ -6,6 +6,13 @@ from unittest.util import _MAX_LENGTH
 from django.db import models
 from datetime import date
 
+class Categoria(models.Model):
+    nome = models.CharField(max_length=50)
+    descricao = models.TextField()
+
+    def __str__(self) -> str:
+        return self.nome
+    
 class Produto(models.Model):
     titulo = models.CharField(max_length=300)
     imagem = models.ImageField(upload_to='img_produto', null=True, blank=True)
@@ -17,6 +24,10 @@ class Produto(models.Model):
     disponivel = models.BooleanField(default=True)
     data_utm_alteracao = models.DateField(auto_now=True)
     data_cadastro = models.DateField(default= date.today)
+    estoque = models.FloatField()
+    categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING)
+
+
 
     class Meta:
         verbose_name = 'Produto'

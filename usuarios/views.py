@@ -56,13 +56,8 @@ def valida_login(request):
         return redirect('/auth/login/?status=1')## se não existir o usuario no sistema redireciona para login com status 1
     elif len(usuario) > 0:
         request.session['usuario'] = usuario[0].id ##session funciona como se fosse uma variavel global para autenticar o usuario.
-        return redirect('/?status=1')
+        return redirect('home')
 
-def valida_user_home(request):
-    if request.session.get('usuario'):
-        return redirect('/?status=1')
-    else:
-        return redirect('/')
 
 def sair(request):
     ## request.session = None
