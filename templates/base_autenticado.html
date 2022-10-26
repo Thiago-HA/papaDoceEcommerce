@@ -15,18 +15,7 @@
     <!-- Incluindo o menu principal -->
     {% include '_navbar_autenticado.html' %}
 
-    <main class="main-site">
-      <selection class="conteudo-principal">
-        <div class="coluna-filtro">
-          
-        </div>
-        <div class="coluna-produtos">
-             {% block 'conteudo_produtos' %}{% endblock %}
-        </div>
-      </selection>
-    </main>
-
-   
+    {% block 'conteudo' %} {% endblock %}
     
     <!-- Incluindo o Footer 
     {% include '_footer.html' %}-->

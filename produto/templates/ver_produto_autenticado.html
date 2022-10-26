@@ -1,0 +1,16 @@
+{% extends 'base_autenticado.html' %}
+
+{% block titulo %}
+Produto
+{% endblock titulo %}
+
+{% block 'conteudo' %}
+
+<div>
+    <h1>{{produto.titulo}}</h1>
+    <h1>{{produto.preco}}</h1>
+    <h1>{{produto.data_cadastro}}</h1>
+    <img src="{{produto.imagem.url}}" class="card-img-top" alt="...">
+</div>
+
+{% endblock 'conteudo' %}
