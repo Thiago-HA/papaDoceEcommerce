@@ -15,7 +15,11 @@
     <!-- Incluindo o menu principal -->
     {% include '_navbar_autenticado.html' %}
 
-    {% block 'conteudo' %} {% endblock %}
+
+
+    {% block 'conteudo' %} 
+        {% block 'filtros' %} {% endblock %}
+    {% endblock %}
     
     <!-- Incluindo o Footer 
     {% include '_footer.html' %}-->

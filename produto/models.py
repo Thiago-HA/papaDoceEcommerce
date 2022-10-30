@@ -15,7 +15,7 @@ class Categoria(models.Model):
     
 class Produto(models.Model):
     titulo = models.CharField(max_length=300)
-    imagem = models.ImageField(upload_to='img_produto', null=True, blank=True)
+    imagem = models.ImageField(upload_to='img_produto', null=False, blank=False,)
     favorito = models.BooleanField(default=False)
     descricao = models.CharField(max_length=1000, blank=True, null=True)
     marca = models.CharField(max_length=80, blank=True, null=True)
