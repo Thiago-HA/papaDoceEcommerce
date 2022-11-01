@@ -9,15 +9,22 @@ def pagina_home(request):
         produtos = Produto.objects.all() ## mostra todos os produtos.
         categorias = Categoria.objects.all()
         favoritos = Favorito.objects.raw('SELECT * FROM produto_favorito WHERE user_id = %s ', [usuario.id])
+
+        #carregar a quantidade na lista de favoritos:
         fav = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_favorito ON produto_produto.id = produto_favorito.prod_id) INNER JOIN usuarios_usuario ON produto_favorito.user_id = usuarios_usuario.id;')
         qtd_favoritos = len(fav)
+
+        #carregar a quantidade na lista de Carrinho:
+        carrinho = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_carrinho ON produto_produto.id = produto_carrinho.produto_id) INNER JOIN usuarios_usuario ON produto_carrinho.user_id = usuarios_usuario.id;')
+        qtd_carrinho = len(carrinho)
 
 
         context = {
             'categorias': categorias,
             'produtos': produtos,
             'favorito' : favoritos,
-            'qtd_favoritos' : qtd_favoritos
+            'qtd_favoritos' : qtd_favoritos,
+            'qtd_carrinho' : qtd_carrinho,
         }
 
         return render(request, 'home_autenticado.html', context)
@@ -28,7 +35,22 @@ def pagina_home(request):
 def ver_produto(request, id):
     if request.session.get('usuario'):
         produto = Produto.objects.get(id = id)
-        return render(request, 'ver_produto_autenticado.html', {'produto' : produto})
+
+        #carregar a quantidade na lista de favoritos:
+        fav = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_favorito ON produto_produto.id = produto_favorito.prod_id) INNER JOIN usuarios_usuario ON produto_favorito.user_id = usuarios_usuario.id;')
+        qtd_favoritos = len(fav)
+
+        #carregar a quantidade na lista de Carrinho:
+        carrinho = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_carrinho ON produto_produto.id = produto_carrinho.produto_id) INNER JOIN usuarios_usuario ON produto_carrinho.user_id = usuarios_usuario.id;')
+        qtd_carrinho = len(carrinho)
+
+        context = {
+            'produto' : produto,
+            'qtd_favoritos': qtd_favoritos,
+            'qtd_carrinho': qtd_carrinho,
+        }
+
+        return render(request, 'ver_produto_autenticado.html', context)
     else:
         return render(request,'ver_produto.html')
 
@@ -74,12 +96,11 @@ def filtrar(request):
 
 def favoritos_add(request, id):
     if request.session.get('usuario'):
-        fav_all = Favorito.objects.all()
         usuario = Usuario.objects.get(id = request.session['usuario'])
         produto = Produto.objects.get(id = id)
         fav = Favorito.objects.filter(prod_id = produto.id)
 
-        #se ele já ta na lista deleta, e se não, adiciona:
+        #se ele já ta na lista deleta, e se não, adiciona: 
         if fav:
             return redirect('home')
         else:

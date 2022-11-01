@@ -22,6 +22,6 @@ Produto
         <br>
       </div>
 </div>
-<a href="{% url 'ver_produto' produto.id %}" class="btn btn-danger">Comprar</a>
+<a href="{% url 'carrinho_add' produto.id %}" class="btn btn-danger">Comprar</a>
 
 {% endblock 'conteudo' %}
