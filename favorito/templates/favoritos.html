@@ -1,0 +1,51 @@
+{% extends 'base_autenticado.html' %}
+{% load static %}
+
+
+
+{% block titulo %} 
+    Meus produtos Favoritos
+{% endblock titulo %}
+
+
+{% block 'conteudo' %}
+    
+    {% if status == '1' %}
+            <div class="produto-coontainer col-md">
+                <div class="card" style="width: 50rem;">
+                    <h1>Ops! Sua lista está vazia :&#40;</h1>
+                    <a href="{% url 'home' %}" class="btn btn-info">CONTINUAR COMPRANDO</a>
+                    <br>
+                </div>
+            </div>
+        {% else %}
+        
+        {% for fav in fav %}
+            <div class="produto-coontainer col-md">
+                <div class="card" style="width: 18rem;">
+                
+                <a href="{% url 'favoritos_remove' fav.id %}" class="button div-fav" id="div-fav">
+                    
+                    <button type="button" class="btn" id="btn-favorito">
+                    <img src="{% static 'home/img/lupa_icon.png' %}" id="icon-favorito"> 
+                    </button>
+                </a>
+                    <img src="{{fav.imagem.url}}" class="card-img-top" alt="...">
+                    <div class="card-body card-info">
+                    <h5 class="card-title ">{{fav.titulo}}</h5>
+                    <h1 class="card-subtitle ">R$: {{fav.preco}}</h1>
+                    </div>
+                    <a href="{% url 'ver_produto' fav.id %}" class="btn btn-info">Ver detalhes</a>
+                    <br>
+                </div>
+            </div>
+    
+        {% endfor %}
+
+    {% endif %}
+
+
+         
+
+    
+{% endblock %}

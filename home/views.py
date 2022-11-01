@@ -1,6 +1,6 @@
 from django.shortcuts import HttpResponse, redirect, render
 from usuarios.models import Usuario
-from produto.models import Produto, Categoria
+from produto.models import Favorito, Produto, Categoria
 
 # Create your views here.
 def pagina_home(request):
@@ -8,10 +8,13 @@ def pagina_home(request):
         usuario = Usuario.objects.get(id = request.session['usuario'])
         produtos = Produto.objects.all() ## mostra todos os produtos.
         categorias = Categoria.objects.all()
+        favoritos = Favorito.objects.raw('SELECT * FROM produto_favorito WHERE user_id = %s ', [usuario.id])
+
 
         context = {
             'categorias': categorias,
             'produtos': produtos,
+            'favorito' : favoritos,
         }
 
         return render(request, 'home_autenticado.html', context)
@@ -62,8 +65,38 @@ def filtrar(request):
                 #produtos = Produto.objects.filter(categoria = cat)
                 
 
-        
-
         return render(request, 'home_autenticado_filtrado.html', context)
     else:
         return render(request,'')
+
+def favoritos_add(request, id):
+    if request.session.get('usuario'):
+        fav_all = Favorito.objects.all()
+        usuario = Usuario.objects.get(id = request.session['usuario'])
+        produto = Produto.objects.get(id = id)
+        fav = Favorito.objects.filter(prod_id = produto.id)
+
+        #se ele já ta na lista deleta, e se não, adiciona:
+        if fav:
+            fav.delete()## deleta no banco de Dados
+            return redirect('home')
+        else:
+            favorito = Favorito(user = usuario, prod = produto)
+            favorito.save()## salva no banco de Dados
+            return redirect('home')
+
+    else:
+        return redirect('login')
+
+def favoritos_remove(request, id):
+    if request.session.get('usuario'):
+        produto = Produto.objects.get(id = id)
+        fav = Favorito.objects.filter(prod_id = produto.id)
+
+        #se ele já ta na lista deleta:
+        if fav:
+            fav.delete()## deleta no banco de Dados
+            return redirect('verifica_favoritos')
+
+    else:
+        return redirect('login')

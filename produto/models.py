@@ -5,6 +5,7 @@ from tabnanny import verbose
 from unittest.util import _MAX_LENGTH
 from django.db import models
 from datetime import date
+from usuarios.models import Usuario
 
 class Categoria(models.Model):
     nome = models.CharField(max_length=50)
@@ -16,7 +17,6 @@ class Categoria(models.Model):
 class Produto(models.Model):
     titulo = models.CharField(max_length=300)
     imagem = models.ImageField(upload_to='img_produto', null=False, blank=False,)
-    favorito = models.BooleanField(default=False)
     descricao = models.CharField(max_length=1000, blank=True, null=True)
     marca = models.CharField(max_length=80, blank=True, null=True)
     preco = models.FloatField()
@@ -28,9 +28,18 @@ class Produto(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING)
 
 
-
     class Meta:
         verbose_name = 'Produto'
 
     def __str__(self) -> str:
         return self.titulo
+class Carrinho(models.Model):
+    user = models.ForeignKey(Usuario, null=True, on_delete=models.CASCADE)
+    produto = models.ForeignKey(Produto, null=True, on_delete=models.CASCADE)
+
+class Favorito(models.Model):
+    user = models.ForeignKey(Usuario, null=True, on_delete=models.CASCADE)
+    prod = models.ForeignKey(Produto, null=True, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return self.prod
