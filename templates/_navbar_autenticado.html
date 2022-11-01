@@ -54,14 +54,21 @@
                 </li>
               </ul>
 
-              <a class=" btn-icones button-fav" href="{% url 'verifica_favoritos' %}">
-                <img src="{% static 'home/img/favoritos_icon.svg' %}" id="icon-fav">
+              <a class=" btn-icones button-fav " href="{% url 'verifica_favoritos' %}">
+                <div class="itens-fav">
+                  <img src="{% static 'home/img/favoritos_icon.svg' %}" id="icon-fav">
+                  {% if qtd_favoritos > 0 %}
+                  <div class="bola-number">
+                    <span class="number badge">{{qtd_favoritos}}</span>
+                  </div>
+                {% endif %}
+                </div>
               </a>
               <a class=" btn-icones button-carrinho" href="#">
                 <div class="itens-carrinho">
                   <img src="{% static 'home/img/carrinho_icon.svg' %}" id="icon-carrinho">
-                  <div class="bola-nunmber">
-                    <div class="number">0</div>
+                  <div class="bola-number">
+                    <span class="number">0</span>
                   </div>
                 </div>
               </a>

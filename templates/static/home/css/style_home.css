@@ -32,11 +32,8 @@ body{
 
 /*carrinho de compra e de favoritos*/
 .btn-icones{
-    padding-left:12px;
-    padding-left:12px;
-    padding-top:6px;
-    padding-bottom:6px;
-    height: 44px;
+    margin: 5px;
+    text-decoration: none;
 }
 
 
@@ -44,7 +41,11 @@ body{
     display: flex;
     align-items: center;
 }
-.bola-nunmber{
+.itens-fav{
+    display: flex;
+    align-items: center;
+}
+.bola-number{
     background-color: red;
     border-radius: 50%;
     width: 20px;
@@ -54,6 +55,8 @@ body{
     justify-content: center;
     color: aliceblue;
 }
+
+
 
 /**************************/
 .d-flex{

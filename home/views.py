@@ -9,12 +9,15 @@ def pagina_home(request):
         produtos = Produto.objects.all() ## mostra todos os produtos.
         categorias = Categoria.objects.all()
         favoritos = Favorito.objects.raw('SELECT * FROM produto_favorito WHERE user_id = %s ', [usuario.id])
+        fav = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_favorito ON produto_produto.id = produto_favorito.prod_id) INNER JOIN usuarios_usuario ON produto_favorito.user_id = usuarios_usuario.id;')
+        qtd_favoritos = len(fav)
 
 
         context = {
             'categorias': categorias,
             'produtos': produtos,
             'favorito' : favoritos,
+            'qtd_favoritos' : qtd_favoritos
         }
 
         return render(request, 'home_autenticado.html', context)
@@ -78,7 +81,6 @@ def favoritos_add(request, id):
 
         #se ele já ta na lista deleta, e se não, adiciona:
         if fav:
-            fav.delete()## deleta no banco de Dados
             return redirect('home')
         else:
             favorito = Favorito(user = usuario, prod = produto)

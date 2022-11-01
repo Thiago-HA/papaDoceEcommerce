@@ -7,10 +7,12 @@ def favoritos(request):
     if request.session.get('usuario'):
         status = request.GET.get('status')
         fav = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_favorito ON produto_produto.id = produto_favorito.prod_id) INNER JOIN usuarios_usuario ON produto_favorito.user_id = usuarios_usuario.id;')
-        
+        qtd_favoritos = len(fav)
+
         context = {
             'fav' : fav,
-            'status' : status
+            'status' : status,
+            'qtd_favoritos' : qtd_favoritos
         }
         return render(request, 'favoritos.html', context)
     else:
