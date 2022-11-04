@@ -43,3 +43,14 @@ class Favorito(models.Model):
 
     def __str__(self) -> str:
         return self.prod
+
+class Atributo(models.Model):
+    nome = models.CharField(max_length=50)
+    descricao = models.TextField()
+
+    def __str__(self) -> str:
+        return self.nome
+
+class Produto_detalhe(models.Model):
+    produto = models.ForeignKey(Produto, null=True, on_delete=models.CASCADE)
+    atributo = models.ForeignKey(Atributo, null=True, on_delete=models.CASCADE)

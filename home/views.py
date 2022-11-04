@@ -6,16 +6,17 @@ from produto.models import Favorito, Produto, Categoria
 def pagina_home(request):
     if request.session.get('usuario'):
         usuario = Usuario.objects.get(id = request.session['usuario'])
+        usuariostr = str(usuario.id)
         produtos = Produto.objects.all() ## mostra todos os produtos.
         categorias = Categoria.objects.all()
         favoritos = Favorito.objects.raw('SELECT * FROM produto_favorito WHERE user_id = %s ', [usuario.id])
 
         #carregar a quantidade na lista de favoritos:
-        fav = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_favorito ON produto_produto.id = produto_favorito.prod_id) INNER JOIN usuarios_usuario ON produto_favorito.user_id = usuarios_usuario.id;')
+        fav = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_favorito ON produto_produto.id = produto_favorito.prod_id) INNER JOIN usuarios_usuario ON produto_favorito.user_id = usuarios_usuario.id WHERE  produto_favorito.user_id = %s;', [usuariostr])
         qtd_favoritos = len(fav)
 
         #carregar a quantidade na lista de Carrinho:
-        carrinho = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_carrinho ON produto_produto.id = produto_carrinho.produto_id) INNER JOIN usuarios_usuario ON produto_carrinho.user_id = usuarios_usuario.id;')
+        carrinho = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_carrinho ON produto_produto.id = produto_carrinho.produto_id) INNER JOIN usuarios_usuario ON produto_carrinho.user_id = usuarios_usuario.id WHERE  produto_carrinho.user_id = %s;', [usuariostr])
         qtd_carrinho = len(carrinho)
 
 
@@ -34,14 +35,16 @@ def pagina_home(request):
 
 def ver_produto(request, id):
     if request.session.get('usuario'):
+        usuario = Usuario.objects.get(id = request.session['usuario'])
+        usuariostr = str(usuario.id)
         produto = Produto.objects.get(id = id)
 
         #carregar a quantidade na lista de favoritos:
-        fav = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_favorito ON produto_produto.id = produto_favorito.prod_id) INNER JOIN usuarios_usuario ON produto_favorito.user_id = usuarios_usuario.id;')
+        fav = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_favorito ON produto_produto.id = produto_favorito.prod_id) INNER JOIN usuarios_usuario ON produto_favorito.user_id = usuarios_usuario.id WHERE  produto_favorito.user_id = %s;', [usuariostr])
         qtd_favoritos = len(fav)
 
         #carregar a quantidade na lista de Carrinho:
-        carrinho = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_carrinho ON produto_produto.id = produto_carrinho.produto_id) INNER JOIN usuarios_usuario ON produto_carrinho.user_id = usuarios_usuario.id;')
+        carrinho = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_carrinho ON produto_produto.id = produto_carrinho.produto_id) INNER JOIN usuarios_usuario ON produto_carrinho.user_id = usuarios_usuario.id WHERE  produto_carrinho.user_id = %s;', [usuariostr])
         qtd_carrinho = len(carrinho)
 
         context = {
@@ -98,7 +101,7 @@ def favoritos_add(request, id):
     if request.session.get('usuario'):
         usuario = Usuario.objects.get(id = request.session['usuario'])
         produto = Produto.objects.get(id = id)
-        fav = Favorito.objects.filter(prod_id = produto.id)
+        fav = Favorito.objects.filter(prod_id = produto.id , user_id = usuario.id)
 
         #se ele já ta na lista deleta, e se não, adiciona: 
         if fav:
@@ -113,8 +116,9 @@ def favoritos_add(request, id):
 
 def favoritos_remove(request, id):
     if request.session.get('usuario'):
+        usuario = Usuario.objects.get(id = request.session['usuario'])
         produto = Produto.objects.get(id = id)
-        fav = Favorito.objects.filter(prod_id = produto.id)
+        fav = Favorito.objects.filter(prod_id = produto.id ,  user_id = usuario.id)
 
         #se ele já ta na lista deleta:
         if fav:
