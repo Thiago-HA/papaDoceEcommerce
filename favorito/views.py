@@ -20,6 +20,7 @@ def favoritos(request):
             'status' : status,
             'qtd_favoritos' : qtd_favoritos,
             'qtd_carrinho' : qtd_carrinho,
+            'usuario' : usuario,
         }
         return render(request, 'favoritos.html', context)
     else:

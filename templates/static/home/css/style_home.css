@@ -57,7 +57,6 @@ body{
 }
 
 
-
 /**************************/
 .d-flex{
     width: 300px;
@@ -113,6 +112,7 @@ body{
 }
 .navbar-nav{
     gap: 12px;
+    align-items: center;
 }
 .minha-conta{
     font-size: 20px;

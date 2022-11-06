@@ -26,6 +26,7 @@ def pagina_home(request):
             'favorito' : favoritos,
             'qtd_favoritos' : qtd_favoritos,
             'qtd_carrinho' : qtd_carrinho,
+            'usuario' : usuario,
         }
 
         return render(request, 'home_autenticado.html', context)
@@ -51,6 +52,7 @@ def ver_produto(request, id):
             'produto' : produto,
             'qtd_favoritos': qtd_favoritos,
             'qtd_carrinho': qtd_carrinho,
+            'usuario' : usuario,
         }
 
         return render(request, 'ver_produto_autenticado.html', context)

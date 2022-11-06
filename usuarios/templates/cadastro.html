@@ -21,7 +21,7 @@
             <div class="alert alert-danger d-flex align-items-center" role="alert">
                 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                 <div>
-                        Nome e Email não podem estar vazios.
+                        Preencher todos os campos obrigatórios.
                 </div>
             </div>
         {% endif %}
@@ -39,7 +39,7 @@
             <div class="alert alert-danger d-flex align-items-center" role="alert">
                 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                 <div>
-                        Usuario já existe no Sistemas.
+                        Email de usuário já existe no Sistemas.
                 </div>
             </div>
         {% endif %}
@@ -61,6 +61,15 @@
                 </div>
             </div>
         {% endif %}
+
+        {% if status == '5' %}
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                <div>
+                        CPF de usuário já existe no Sistemas.
+                </div>
+            </div>
+        {% endif %}
         
 
         <div class=" row">
@@ -72,15 +81,26 @@
                 <h1>Cadastre-se</h1>
                 <hr></hr>
 
+                <strong>(campos obrigatórios *)</strong>
+
                 <form method="POST" action={% url 'valida_cadastro' %} > {% csrf_token %}
-                    <label>Nome</label>
+                    <label>Nome *</label>
                     <input name="nome" class="form-control" type="text" placeholder="" >
                     <br></br>
-                    <label>Email</label>
+                    <label>Apelido</label>
+                    <input name="apelido" class="form-control" type="text" placeholder="" >
+                    <br></br>
+                    <label>Email *</label>
                     <input name="email" class="form-control" type="Email" placeholder-"Email...">
                     <br></br>
-                    <label>Senha</label>
+                    <label>Senha *</label>
                     <input name="senha" class="form-control" type="password" placeholder="">
+                    <br></br>
+                    <label>CPF *</label>
+                    <input name="cpf" class="form-control" type="text" placeholder="" >
+                    <br></br>
+                    <label>Data Nascimento *</label>
+                    <input name="data_nascimento" class="form-control" type="date" placeholder=""  >
                     <br></br>
                     <input class="btn btn-info btn-primary" type="submit" value="Enviar"> 
                     <a href="{% url 'login' %}" class="btn btn-warning btn-lg">Já possuo conta</a>

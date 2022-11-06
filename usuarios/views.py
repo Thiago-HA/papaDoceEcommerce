@@ -20,25 +20,33 @@ def cadastro(request):
 def valida_cadastro(request):
 
     nome = request.POST.get('nome')
+    apelido = request.POST.get('apelido')
     senha = request.POST.get('senha')
     email = request.POST.get('email')
+    cpf = request.POST.get('cpf')
+    data_nascimento = request.POST.get('data_nascimento')
 
-    usuario = Usuario.objects.filter(email = email)
+    usuario_email = Usuario.objects.filter(email = email)
+    usuario_cpf = Usuario.objects.filter(cpf = cpf)
 
     ## SE nome ou email for igual a zero 
-    if len(nome.strip()) == 0 or len(email.strip()) == 0: ##len() se refere ao tamanho e .strip() retira os espaços do inicio e do final.
+    if len(nome.strip()) == 0 or len(email.strip()) == 0 or len(cpf.strip()) == 0 or len(data_nascimento.strip()) == 0: 
+        ##len() se refere ao tamanho e .strip() retira os espaços do inicio e do final.
         return redirect('/auth/cadastro/?status=1')
 
     if len(senha) < 8:
         return redirect('/auth/cadastro/?status=2')
 
-    if(len(usuario)): ## Se o tamanho do usuario for maior que 0:
+    if(len(usuario_email)): ## Se o tamanho do usuario for maior que 0:
         return redirect('/auth/cadastro/?status=3')
+
+    if(len(usuario_cpf)): ## Se o tamanho do usuario for maior que 0:
+        return redirect('/auth/cadastro/?status=5')
     
     try:
         senha = sha256(senha.encode()).hexdigest() ##sha256 cria um hash de senha e o Hexdigest() faz a conversão do hash
                                                     ## para um conjunto em hexadecimal de 64 caracteries
-        usuario = Usuario(nome = nome, senha = senha, email = email)
+        usuario = Usuario(nome = nome, senha = senha, email = email, apelido = apelido, cpf = cpf, data_nascimento = data_nascimento)
         usuario.save()## salva no banco de Dados
 
         return redirect('/auth/cadastro/?status=0')

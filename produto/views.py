@@ -34,6 +34,7 @@ def carrinho(request):
             'status' : status,
             'qtd_carrinho' : qtd_carrinho,
             'qtd_favoritos' : qtd_favoritos,
+            'usuario' : usuario,
         }
         return render(request, 'carrinho.html', context)
     else:
