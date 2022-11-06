@@ -9,7 +9,7 @@
 
 
 {% block 'conteudo' %}
-    
+    <div class="container-produtos-carrinho">
     {% if status == '1' %}
             <div class="produto-coontainer col-md">
                 <div class="card" style="width: 50rem;">
@@ -21,28 +21,28 @@
         {% else %}
         
         {% for carrinho in carrinho %}
-        <div class="produto-coontainer col-md">
-            <div class="card" style="width: 18rem;">
-                <img src="{{carrinho.imagem.url}}" class="card-img-top" alt="...">
-                <div class="card-body card-info">
-                <h5 class="card-title ">{{carrinho.titulo}}</h5>
-                <h1 class="card-subtitle ">R$: {{carrinho.preco}}</h1>
+                <div class="produto-coontainer col-md">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{carrinho.imagem.url}}" class="card-img-top" alt="...">
+                        <div class="card-body card-info">
+                        <h5 class="card-title ">{{carrinho.titulo}}</h5>
+                        <h1 class="card-subtitle ">R$: {{carrinho.preco}}</h1>
+                        </div>
+                        <a href="{% url 'ver_produto' carrinho.id %}" class="btn btn-info">Ver detalhes</a>
+                        <br>
+                        <a href="{% url 'carrinho_remove' carrinho.id %}" class="btn btn-danger">Remover</a>
+                        <br>
+                    </div>
                 </div>
-                <a href="{% url 'ver_produto' carrinho.id %}" class="btn btn-info">Ver detalhes</a>
-                <br>
-                <a href="{% url 'carrinho_remove' carrinho.id %}" class="btn btn-danger">Remover</a>
-                <br>
-            </div>
-        </div>
-    
+        
         {% endfor %}
+    </div>
+        Total: 
         
         <a href="#" class="btn btn-success">Finalizar Pedido </a>
 
     {% endif %}
 
 
-         
 
-    
 {% endblock %}

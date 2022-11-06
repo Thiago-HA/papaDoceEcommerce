@@ -16,7 +16,7 @@ Produto
         <img src="{{produto.imagem.url}}" class="card-img-top" alt="...">
         <div class="card-body card-info">
           <h5 class="card-title ">{{produto.titulo}}</h5>
-          <h1 class="card-subtitle ">R$: {{produto.preco}}</h1>
+          <h1 class="card-subtitle ">R$: {{preco}}</h1>
         </div>
         <a href="{% url 'ver_produto' produto.id %}" class="btn btn-info">Ver detalhes</a>
         <br>

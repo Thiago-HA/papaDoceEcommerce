@@ -1,50 +1,82 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
+
 {% block titulo %} 
     Home
 {% endblock titulo %}
 
 
-{% block 'conteudoFiltros' %}
-    {% for i in filtros %}
-        <div class="filtros-coontainer">
-            <p>
-                {{i.descricao}}
-            </p>
-        </div>
-    {% endfor %}
-{% endblock %}
-
-
 {% block 'conteudo' %}
     
+
 
     <main class="main-site">
         <selection class="conteudo-principal">
           <div class="coluna-filtro">
-            filtros
+            {% block 'filtros' %}
+            
+              <form method="POST" action={% url 'filtrar' %}> {% csrf_token %}
+                <h1>Categorias</h1>  
+                {% for categoria in categorias %}
+
+                    <div class="mb-3 form-check">
+                      <input type="checkbox" class="form-check-input" name="{{categoria.id}}" value = "{{categoria.id}}">
+                      <label class="form-check-label" for="exampleCheck1">{{categoria.nome}}</label>
+                    </div>
+
+                {% endfor %}
+
+                <h1>Preço</h1>
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" >
+                  <label class="form-check-label" for="exampleCheck1">De R$ 1,00 Até R$ 50,00</label>
+                </div>
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" >
+                  <label class="form-check-label" for="exampleCheck1">De R$ 50,00 Até R$ 100,00</label>
+                </div>
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" >
+                  <label class="form-check-label" for="exampleCheck1">De R$ 100,00 Até R$ 150,00</label>
+                </div>
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" >
+                  <label class="form-check-label" for="exampleCheck1">De R$ 150,00 Até R$ 200,00</label>
+                </div>
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input">
+                  <label class="form-check-label" for="exampleCheck1">Mais de R$ 200,00</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            
+            {% endblock %}
           </div>
           <div class="coluna-produtos">
-            {% for produto in produtos %}
-
-                <div class="produto-coontainer col-md">
+            
+              {% for produto in produtos %}
+                  <div class="produto-coontainer col-md">
                     <div class="card" style="width: 18rem;">
-                        <a href="#" class="button">
-                            <svg style="color: black;"xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                            </svg>
+                      
+                      <div id="div-fav">
+                        <a href="{% url 'favoritos_add' produto.id %}" class="button div-fav">
+                        
+                          <button type="button" class="btn" id="btn-favorito" onclick="activeBtnFav()">
+                            <img src="{% static 'home/img/lupa_icon.png' %}" id="icon-favorito">
+                          </button>
                         </a>
-                        <img src="..." class="card-img-top" alt="...">
+                      </div>
+                        <img src="{{produto.imagem.url}}" class="card-img-top" alt="...">
                         <div class="card-body card-info">
                           <h5 class="card-title ">{{produto.titulo}}</h5>
                           <h1 class="card-subtitle ">R$: {{produto.preco}}</h1>
                         </div>
-                        <button class="btn btn-info">Ver detalhes</button>
+                        <a href="{% url 'ver_produto' produto.id %}" class="btn btn-info">Ver detalhes</a>
                         <br>
                       </div>
-                </div>
-
+                  </div>
             {% endfor %}
           </div>
         </selection>

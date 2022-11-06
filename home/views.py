@@ -31,14 +31,25 @@ def pagina_home(request):
 
         return render(request, 'home_autenticado.html', context)
     else:
-        produto = Produto.objects.all() ## mostra todos os produtos.
-        return render(request, 'home.html', {'produtos': produto})
+        produtos = Produto.objects.all() ## mostra todos os produtos.
+        categorias = Categoria.objects.all()
+
+        context = {
+            'categorias': categorias,
+            'produtos': produtos,
+        }
+
+        return render(request, 'home.html', context)
 
 def ver_produto(request, id):
     if request.session.get('usuario'):
         usuario = Usuario.objects.get(id = request.session['usuario'])
         usuariostr = str(usuario.id)
         produto = Produto.objects.get(id = id)
+
+        #arredondamento do preço do produto para mostrar sempre duas casas depois da virgula:
+        preco_arredondado = '%.2f' %(produto.preco)
+        preco_arredondado = preco_arredondado.replace(".", ",")
 
         #carregar a quantidade na lista de favoritos:
         fav = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_favorito ON produto_produto.id = produto_favorito.prod_id) INNER JOIN usuarios_usuario ON produto_favorito.user_id = usuarios_usuario.id WHERE  produto_favorito.user_id = %s;', [usuariostr])
@@ -53,6 +64,7 @@ def ver_produto(request, id):
             'qtd_favoritos': qtd_favoritos,
             'qtd_carrinho': qtd_carrinho,
             'usuario' : usuario,
+            'preco' : preco_arredondado,
         }
 
         return render(request, 'ver_produto_autenticado.html', context)
