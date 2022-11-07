@@ -1,7 +1,18 @@
-const btnfavorito = document.getElementById('btn-favorito');
 
-function activeBtnFav() {
-    alert('Produto adicionado com sucesso')
+function activeBtnFav(id) {
+    alert('Produto adicionado com sucesso '+ id)
+    fetch('/favoritos_add/' + id)
+
+    const nav = document.getElementById('div-fav');
+    nav.classList.toggle('active')
+
+    if (nav.classList.contains('active') == true) {
+        alterarImagem("icon-favorito","home/img/carrinho_icon.svg");
+    }else{
+        alterarImagem("icon-favorito","home/img/lupa_icon.png");
+    }
+    
+
 
 }
 

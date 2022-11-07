@@ -1,8 +1,8 @@
-import email
-import re
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from .models import Usuario
+
+from produto.models import Produto
+from .models import Endereco, Usuario
 from hashlib import sha256 ## 
 
 def login(request):
@@ -77,6 +77,35 @@ def sair(request):
     return redirect('/auth/login')
 
 
+def perfil(request):
+    if request.session.get('usuario'):
+        usuario = Usuario.objects.get(id = request.session['usuario'])
+        usuariostr = str(usuario.id)
+        #lista de todos os endereços deste usuario:
+        enderecos = Endereco.objects.raw('SELECT * FROM (usuarios_endereco INNER JOIN usuarios_usuario_endereco ON usuarios_endereco.id = usuarios_usuario_endereco.endereco_id) INNER JOIN usuarios_usuario ON usuarios_usuario_endereco.user_id = usuarios_usuario.id WHERE  usuarios_usuario_endereco.user_id = %s;', [usuariostr])
+
+        #carregar a quantidade na lista de favoritos:
+        fav = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_favorito ON produto_produto.id = produto_favorito.prod_id) INNER JOIN usuarios_usuario ON produto_favorito.user_id = usuarios_usuario.id WHERE  produto_favorito.user_id = %s;', [usuariostr])
+        qtd_favoritos = len(fav)
+
+        #carregar a quantidade na lista de Carrinho:
+        carrinho = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_carrinho ON produto_produto.id = produto_carrinho.produto_id) INNER JOIN usuarios_usuario ON produto_carrinho.user_id = usuarios_usuario.id WHERE  produto_carrinho.user_id = %s;', [usuariostr])
+        qtd_carrinho = len(carrinho)
+
+        context = {
+            'usuario' : usuario,
+            'endereco' : enderecos,
+            'qtd_favoritos' : qtd_favoritos,
+            'qtd_carrinho' : qtd_carrinho,
+            
+        }
+
+
+        return render(request, 'perfil.html', context)    
+
+
+    else:
+        return redirect('login')
 
     
 

@@ -117,7 +117,7 @@ def favoritos_add(request, id):
         produto = Produto.objects.get(id = id)
         fav = Favorito.objects.filter(prod_id = produto.id , user_id = usuario.id)
 
-        #se ele já ta na lista deleta, e se não, adiciona: 
+        #se ele já ta na lista ignora, e se não, adiciona: 
         if fav:
             return redirect('home')
         else:

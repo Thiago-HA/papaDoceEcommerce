@@ -61,13 +61,15 @@
                     <div class="card" style="width: 18rem;">
                       
                       <div id="div-fav">
-                        <a href="{% url 'favoritos_add' produto.id %}" class="button div-fav">
+
                         
-                          <button type="button" class="btn" id="btn-favorito" onclick="activeBtnFav()">
-                            <img src="{% static 'home/img/lupa_icon.png' %}" id="icon-favorito">
-                          </button>
-                        </a>
-                      </div>
+                          <a href="{% url 'favoritos_add' produto.id %}">
+                            <button type="button" class="btn" id="btn-favorito" onclick="">
+                              <img src="{% static 'home/img/lupa_icon.png' %}" id="icon-favorito">
+                            </button>
+                          </a>
+
+                        </div>
                         <img src="{{produto.imagem.url}}" class="card-img-top" alt="...">
                         <div class="card-body card-info">
                           <h5 class="card-title ">{{produto.titulo}}</h5>
