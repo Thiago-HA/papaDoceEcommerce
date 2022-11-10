@@ -19,7 +19,7 @@ class Produto(models.Model):
     imagem = models.ImageField(upload_to='img_produto', null=False, blank=False,)
     descricao = models.CharField(max_length=1000, blank=True, null=True)
     marca = models.CharField(max_length=80, blank=True, null=True)
-    preco = models.FloatField()
+    preco = models.DecimalField("Preço", max_digits=8, decimal_places=2)
     cor = models.CharField(max_length=50, blank=True, null=True)
     disponivel = models.BooleanField(default=True)
     data_utm_alteracao = models.DateField(auto_now=True)
