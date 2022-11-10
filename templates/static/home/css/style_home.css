@@ -148,14 +148,16 @@ body{
     flex-direction: column;
 }
 .coluna-produtos{
-    width: 80%;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
-    gap:5px;
+    justify-content: flex-start;
+    gap:3px;
 }
 
 .produto-coontainer{
     display:flex;
+    justify-content: center;
 }
 
 
@@ -212,3 +214,15 @@ body{
     }
 
 }
+
+/* PRODUTOS */
+
+.card{
+    width: 233px;
+}
+
+.card-img-top {
+    width: 231px;
+    height: 200px;
+}
+

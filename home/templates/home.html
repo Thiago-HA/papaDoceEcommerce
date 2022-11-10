@@ -57,8 +57,8 @@
           <div class="coluna-produtos">
             
               {% for produto in produtos %}
-                  <div class="produto-coontainer col-md">
-                    <div class="card" style="width: 18rem;">
+                  
+                    <div class="card">
                       
                       <div id="div-fav">
                         <a href="{% url 'favoritos_add' produto.id %}" class="button div-fav">
@@ -76,7 +76,7 @@
                         <a href="{% url 'ver_produto' produto.id %}" class="btn btn-info">Ver detalhes</a>
                         <br>
                       </div>
-                  </div>
+                  
             {% endfor %}
           </div>
         </selection>
