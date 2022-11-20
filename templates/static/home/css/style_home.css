@@ -226,3 +226,13 @@ body{
     height: 200px;
 }
 
+
+
+/* FILTROS */
+
+.filtrosBK{
+    width: 100%;
+    padding: 10px; 29px;
+    border-radius: 10px;
+    background-color: rgba(58, 160, 255, 0.267);
+}

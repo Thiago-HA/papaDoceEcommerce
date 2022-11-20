@@ -10,6 +10,9 @@
 
 {% block 'conteudo' %}
     
+{% include '_carrossel.html' %}
+
+    <br>
 
 
     <main class="main-site">
@@ -17,8 +20,8 @@
           <div class="coluna-filtro">
             {% block 'filtros' %}
             
-              <form method="POST" action={% url 'filtrar' %}> {% csrf_token %}
-                <h1>Categorias</h1>  
+              <form class="filtrosBK" method="POST" action={% url 'filtrar' %}> {% csrf_token %}
+                <h1>Categorias</h1> <hr> 
                 {% for categoria in categorias %}
 
                     <div class="mb-3 form-check">
@@ -28,7 +31,7 @@
 
                 {% endfor %}
 
-                <h1>Preço</h1>
+                <h1>Preço</h1> <hr>
                 <div class="mb-3 form-check">
                   <input type="checkbox" class="form-check-input" >
                   <label class="form-check-label" for="exampleCheck1">De R$ 1,00 Até R$ 50,00</label>
@@ -49,7 +52,7 @@
                   <input type="checkbox" class="form-check-input">
                   <label class="form-check-label" for="exampleCheck1">Mais de R$ 200,00</label>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Filtrar</button>
               </form>
             
             {% endblock %}
