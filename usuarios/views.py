@@ -108,13 +108,14 @@ def perfil(request):
 
 def update_perfil(request):
     if request.session.get('usuario'):
-
+        usuario = Usuario.objects.get(id = request.session['usuario'])
+        usuariostr = str(usuario.id)
         nome = request.POST.get('nome')
         apelido = request.POST.get('apelido')
         email = request.POST.get('email')
         cpf = request.POST.get('cpf')
         data_nascimento = request.POST.get('data_nascimento')
-
+        
         usuario_email = Usuario.objects.filter(email = email)
         usuario_cpf = Usuario.objects.filter(cpf = cpf)
 
@@ -123,15 +124,15 @@ def update_perfil(request):
             ##len() se refere ao tamanho e .strip() retira os espaços do inicio e do final.
             return redirect('/auth/minha_conta/perfil/?status=2')
 
-        if(len(usuario_email)): ## Se o tamanho do usuario for maior que 0:
+        if(len(usuario_email) and email != str(usuario.email)): ## Se o tamanho do usuario for maior que 0:
             return redirect('/auth/minha_conta/perfil/?status=3')
 
-        if(len(usuario_cpf)): ## Se o tamanho do usuario for maior que 0:
+        if(len(usuario_cpf) and cpf != str(usuario.cpf)): ## Se o tamanho do usuario for maior que 0:
             return redirect('/auth/minha_conta/perfil/?status=4')
 
         try:
-            usuario = Usuario.objects.get(id = request.session['usuario'], nome = nome, apelido = apelido, email = email, cpf = cpf, data_nascimento = data_nascimento)
-            usuario.save()
+            user = Usuario(id = usuario.id, nome = nome, senha = usuario.senha, email = email, apelido = apelido, cpf = cpf, data_nascimento = data_nascimento)
+            user.save()
 
             return redirect('/auth/minha_conta/perfil/?status=1')
         except:
