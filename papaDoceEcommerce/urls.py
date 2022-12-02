@@ -26,6 +26,7 @@ urlpatterns = [
     path('auth/', include('usuarios.urls')),
     path('minha_conta/', include('favorito.urls')),
     path('produto/', include('produto.urls')),
+    path('pedido/', include('pedido.urls')),
 
 ]
 

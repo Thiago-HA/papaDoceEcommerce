@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'produto.apps.ProdutoConfig',
     'usuarios.apps.UsuariosConfig',
     'favorito.apps.FavoritoConfig',
+    'pedido.apps.PedidoConfig',
 
 ]
 

@@ -1,5 +1,6 @@
 from multiprocessing import context
 from django.shortcuts import HttpResponse, redirect, render
+import mercadopago
 from usuarios.models import Usuario
 from produto.models import Carrinho, Produto
 
@@ -22,13 +23,33 @@ def carrinho(request):
         usuario = Usuario.objects.get(id = request.session['usuario'])
         usuariostr = str(usuario.id)
         status = request.GET.get('status')
+
         carrinho = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_carrinho ON produto_produto.id = produto_carrinho.produto_id) INNER JOIN usuarios_usuario ON produto_carrinho.user_id = usuarios_usuario.id WHERE  produto_carrinho.user_id = %s;', [usuariostr])
         qtd_carrinho = len(carrinho)
-
 
         #carregar os dados da quantdade da lista de favoritos:
         fav = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_favorito ON produto_produto.id = produto_favorito.prod_id) INNER JOIN usuarios_usuario ON produto_favorito.user_id = usuarios_usuario.id WHERE  produto_favorito.user_id = %s;', [usuariostr])
         qtd_favoritos = len(fav)
+
+
+        # Adicione as credenciais
+        sdk = mercadopago.SDK("TEST-7206970217417319-112923-f38efa38057699afb94cdd1073d179c1-221366732")
+        
+        # Cria um item na preferência
+        preference_data = {
+            "items": [
+                {
+                    "title": "Produtos",
+                    "quantity": 1,
+                    "unit_price": 75.00
+                },
+            ]
+        }
+
+        # Cria a preferência
+        preference_response = sdk.preference().create(preference_data)
+        preference = preference_response["response"]
+        preference = preference["id"]
 
         context = {
             'carrinho' : carrinho,
@@ -36,10 +57,12 @@ def carrinho(request):
             'qtd_carrinho' : qtd_carrinho,
             'qtd_favoritos' : qtd_favoritos,
             'usuario' : usuario,
+            'preference' : preference,
         }
         return render(request, 'carrinho.html', context)
     else:
         return redirect('login')
+
 
 
 def carrinho_add(request, id):
