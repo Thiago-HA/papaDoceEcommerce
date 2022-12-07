@@ -17,6 +17,10 @@
 
     <main class="main-site">
         <selection class="conteudo-principal">
+
+          
+          <button onclick="toggle('coluna-filtro')">Filtrar</button>
+
           <div class="coluna-filtro">
             {% block 'filtros' %}
             
@@ -52,7 +56,7 @@
                   <input type="checkbox" class="form-check-input">
                   <label class="form-check-label" for="exampleCheck1">Mais de R$ 200,00</label>
                 </div>
-                <button type="submit" class="btn btn-primary">Filtrar</button>
+                <button type="submit" class="btn btn-primary btn-filtro">Filtrar</button>
               </form>
             
             {% endblock %}
@@ -67,17 +71,19 @@
                         <a href="{% url 'favoritos_add' produto.id %}" class="button div-fav">
                         
                           <button type="button" class="btn" id="btn-favorito" onclick="activeBtnFav()">
-                            <img src="{% static 'home/img/lupa_icon.png' %}" id="icon-favorito">
+                            <img src="{% static 'home/img/icon_heart_fav.png' %}" id="icon-favorito">
                           </button>
                         </a>
                       </div>
+                      <div class="imagem-do-produto">
                         <img src="{{produto.imagem.url}}" class="card-img-top" alt="...">
+                      </div>
                         <div class="card-body card-info">
-                          <h5 class="card-title ">{{produto.titulo}}</h5>
-                          <h1 class="card-subtitle ">R$: {{produto.preco}}</h1>
+                          <p class="card-title ">{{produto.titulo}}</p>
+                          <p class="card-subtitle ">R$: {{produto.preco}}</p>
                         </div>
                         <a href="{% url 'ver_produto' produto.id %}" class="btn btn-info">Ver detalhes</a>
-                        <br>
+                        
                       </div>
                   
             {% endfor %}
