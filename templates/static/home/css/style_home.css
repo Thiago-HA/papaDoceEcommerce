@@ -1,3 +1,8 @@
+html{
+    /* a cada 1 rem será considerado 10px */
+    font-size: 62.5%;
+}
+
 body{
     background-color:rgb(255, 255, 255);
 }
@@ -108,14 +113,15 @@ body{
     border-radius: 5px;
 }
 .lista-link-menu li a{
-    font-size: 20px;
+    font-size: 2rem;
 }
 .navbar-nav{
     gap: 12px;
     align-items: center;
+    font-size: 2rem
 }
 .minha-conta{
-    font-size: 20px;
+    font-size: 2rem;
 }
 
 /* altera conteiner onde fica os botões do carrinho de compra e favoritos*/
@@ -138,6 +144,7 @@ body{
 .conteudo-principal{
     gap: 10px; 
     width: 90%;
+    max-width: 1000px;
     display: flex;
 }
 
@@ -146,14 +153,47 @@ body{
     display: flex;
     justify-content: start;
     flex-direction: column;
+    font-size: 1.4rem;
 }
+/*
 .coluna-produtos{
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     gap:3px;
+}*/
+.coluna-produtos{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+    font-size: 2rem;
 }
+.card-body.card-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/*    FONTES DOS PRODUTOS  */
+
+.card-title{
+    font-size: 2rem;
+}
+.card-subtitle{
+    font-size: 3.5rem;
+}
+.btn.btn-info{
+    font-size: 1.5rem;
+}
+
+.btn-info{
+    color: #fff;
+    background-color: #48aeff;
+    border-color: none;
+}
+
 
 .produto-coontainer{
     display:flex;
@@ -168,6 +208,47 @@ body{
     border-bottom: solid black;
 }
 
+#btn-esconde-mostra-filtro{
+    display: none;
+}
+
+.btn-filtro{
+    font-size: 1.5rem;
+}
+
+
+/* CARROSSEL */
+
+.carousel{
+    box-shadow: 2.5px 2.5px 3px rgba(0, 0, 0, 0.090);
+}
+
+/* PRODUTOS */
+
+.card{
+    width: 233px;
+    box-shadow: 2.5px 2.5px 3px rgba(0, 0, 0, 0.090);
+}
+
+.card-img-top {
+    width: 231px;
+    height: 200px;
+}
+
+
+
+/* FILTROS */
+
+.filtrosBK{
+    width: 100%;
+    padding: 10px; 29px;
+    border-radius: 10px;
+    box-shadow: 0.5px 2.5px 3px rgba(0, 0, 0, 0.090);
+}
+
+
+
+
 /********* FOOTER:  *******/
 .footer{
     background-color: dimgray;
@@ -175,7 +256,14 @@ body{
     justify-content: center;
 }
 
+
 @media (max-width: 992px){
+    html{
+        font-size: 55%;
+    }
+    .btn-esconde-mostra-filtro{
+        display: none;
+    }
     .navbar {
         width: 100%;
     }
@@ -213,32 +301,51 @@ body{
         display: none;
     }
 
-}
-/* CARROSSEL */
-
-.carousel{
-    box-shadow: 2.5px 2.5px 3px rgba(0, 0, 0, 0.090);
-}
-
-/* PRODUTOS */
-
-.card{
-    width: 233px;
-    box-shadow: 2.5px 2.5px 3px rgba(0, 0, 0, 0.090);
-}
-
-.card-img-top {
-    width: 231px;
-    height: 200px;
+    /*PRODUTOS:*/
+    .coluna-produtos{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .card{
+        width: 100%;
+    }
+    .imagem-do-produto{
+        display: flex;
+        justify-content: center;
+    }
 }
 
-
-
-/* FILTROS */
-
-.filtrosBK{
-    width: 100%;
-    padding: 10px; 29px;
-    border-radius: 10px;
-    box-shadow: 0.5px 2.5px 3px rgba(0, 0, 0, 0.090);
+@media (max-width: 700px) {
+    html{
+        font-size: 50%;
+    }
+    #btn-esconde-mostra-filtro{
+        display: block;
+    }
+    .coluna-filtro {
+        width: 100%;
+    }
+    .conteudo-principal{
+        flex-direction: column;
+    }
+    /*PRODUTOS:*/
+    .coluna-produtos{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .card{
+        width: 100%;
+        padding-block-end: 12px;
+    }
+    .imagem-do-produto{
+        display: flex;
+        justify-content: center;
+    }
+    
 }
+
+
+
+
+
+
+
+
