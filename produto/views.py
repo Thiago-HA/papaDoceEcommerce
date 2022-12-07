@@ -27,29 +27,42 @@ def carrinho(request):
         carrinho = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_carrinho ON produto_produto.id = produto_carrinho.produto_id) INNER JOIN usuarios_usuario ON produto_carrinho.user_id = usuarios_usuario.id WHERE  produto_carrinho.user_id = %s;', [usuariostr])
         qtd_carrinho = len(carrinho)
 
+        produtos = Carrinho.objects.filter(user = usuario)
+        total = 0
+        for produtos in produtos :
+            precoo = produtos.produto.preco
+            total= float(precoo) + total
+
+        
+        
+        #total = Produto.objects.raw('SELECT SUM(preco) FROM (produto_produto INNER JOIN produto_carrinho ON produto_produto.id = produto_carrinho.produto_id) INNER JOIN usuarios_usuario ON produto_carrinho.user_id = usuarios_usuario.id WHERE  produto_carrinho.user_id = %s;', [usuariostr])
+
         #carregar os dados da quantdade da lista de favoritos:
         fav = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_favorito ON produto_produto.id = produto_favorito.prod_id) INNER JOIN usuarios_usuario ON produto_favorito.user_id = usuarios_usuario.id WHERE  produto_favorito.user_id = %s;', [usuariostr])
         qtd_favoritos = len(fav)
 
 
-        # Adicione as credenciais
-        sdk = mercadopago.SDK("TEST-7206970217417319-112923-f38efa38057699afb94cdd1073d179c1-221366732")
-        
-        # Cria um item na preferência
-        preference_data = {
-            "items": [
-                {
-                    "title": "Produtos",
-                    "quantity": 1,
-                    "unit_price": 75.00
-                },
-            ]
-        }
+        if carrinho:
+             # Adicione as credenciais
+            sdk = mercadopago.SDK("TEST-7206970217417319-112923-f38efa38057699afb94cdd1073d179c1-221366732")
+            
+            # Cria um item na preferência
+            preference_data = {
+                "items": [
+                    {
+                        "title": "Produtos",
+                        "quantity": 1,
+                        "unit_price": total
+                    },
+                ]
+            }
 
-        # Cria a preferência
-        preference_response = sdk.preference().create(preference_data)
-        preference = preference_response["response"]
-        preference = preference["id"]
+            # Cria a preferência
+            preference_response = sdk.preference().create(preference_data)
+            preference = preference_response["response"]
+            preference = preference["id"]
+        else:
+           preference = "False"
 
         context = {
             'carrinho' : carrinho,
@@ -58,6 +71,7 @@ def carrinho(request):
             'qtd_favoritos' : qtd_favoritos,
             'usuario' : usuario,
             'preference' : preference,
+            'total' : total,
         }
         return render(request, 'carrinho.html', context)
     else:
@@ -92,6 +106,7 @@ def carrinho_remove(request, id):
         if carrinho:
             carrinho.delete()## deleta no banco de Dados
             return redirect('verifica_carrinho')
+
 
     else:
         return redirect('login')
