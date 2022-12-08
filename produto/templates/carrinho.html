@@ -38,7 +38,36 @@
         
         {% endfor %}
 
-        <a href="" class="btn btn-info">Novo endereço</a>
+        <a href="" class="btn btn-info">Novo endereço</a> 
+        </div>
+        <!-- Modal Adicionar novo endereco-->
+        <div class="modal fade" id="model-adicionar-endereco" tabindex="-1" aria-labelledby="model-adicionar-endereco" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="model-adicionar-endereco">Preenche os dados de seu Novo Endereço</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form name="form" id="form" method="post" action="{% url 'endereco_add' %}">
+                        {% csrf_token %}
+                        <div class="row mt-3">
+                            <div class="form-group mt-4"><label class="labels">Rua</label><input name="rua" type="text" class="form-control" value=""></div>
+                            <div class="form-group mt-4 "><label class="labels">Numero</label><input name="numero" type="text" class="form-control"  value=""></div>
+                            <div class="form-group mt-4"><label class="labels">Bairro</label><input name="bairro" type="text" class="form-control" value=""></div>
+                            <div class="form-group mt-4"><label class="labels">Cidade</label><input name="cidade" type="text" class="form-control"  value=""></div>
+                            <div class="form-group mt-4"><label class="labels">CEP</label><input name="cep" type="text" class="form-control" value=""></div>
+                            <div class="form-group mt-4"><label class="labels">Complemento</label><input name="complemento" type="text" class="form-control" value=""></div>
+                        </div>
+                        <div class="mt-5 text-center">
+                            <button class="btn btn-success profile-button" type="submit">Adicionar</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">cancelar</button>
+                        </div>
+                        <br>
+                    </form>
+                </div>
+            </div>
+            </div>
         </div>
 
         {% for carrinho in carrinho %}

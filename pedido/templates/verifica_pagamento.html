@@ -1,0 +1,53 @@
+{% extends 'base_autenticado.html' %}
+
+{% block titulo %}
+ Pedido Aprovado
+{% endblock titulo %}
+
+{% block 'conteudo' %}
+
+{% if status == 'approved' %}
+<section class="vh-100">
+    <div class="container py-5 h-100">
+      <div class="row d-flex align-items-center justify-content-center h-100">
+        <div class="col-md-8 col-lg-7 col-xl-6">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+            class="img-fluid" alt="Phone image">
+        </div>
+        <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1 ">
+            <h1>Pagamento Aprovado!</h1>
+            <br>
+            <div class="texto">
+                <p>Seu pagamento foi aprovado e seu pedido já está sendo processado 👍 </p>
+                <p>Acompanhe em seus pedidos. </p>
+                <br>
+            </div>
+            <a href="#" class="btn btn-info">MEUS PEDIDOS</a>
+        </div>
+      </div>
+    </div>
+</section>
+{% else %}
+<section class="vh-100">
+    <div class="container py-5 h-100">
+      <div class="row d-flex align-items-center justify-content-center h-100">
+        <div class="col-md-8 col-lg-7 col-xl-6">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+            class="img-fluid" alt="Phone image">
+        </div>
+        <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1 ">
+            <h1>Seu Pagamento não foi Aprovado!</h1>
+            <br>
+            <div class="texto">
+                <p>Ops, ocorreu um erro ao tentar processar seu pagamento 😭 </p>
+                <p>Verifique os dados de pagamento e tente novamente. </p>
+                <br>
+            </div>
+            <a href="{% url 'carrinho' %}" class="btn btn-info">Tentar novamente</a>
+        </div>
+      </div>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}

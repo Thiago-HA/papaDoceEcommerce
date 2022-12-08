@@ -58,13 +58,20 @@ def carrinho(request):
                         "quantity": 1,
                         "unit_price": total
                     },
-                ]
+                ],
+                "back_urls": {
+                    "success": "http://127.0.0.1:8000/pedido/verifica_pagamento/",
+                    "failure": "http://127.0.0.1:8000/pedido/verifica_pagamento/",
+                }
+                
             }
+            
 
             # Cria a preferência
             preference_response = sdk.preference().create(preference_data)
             preference = preference_response["response"]
             preference = preference["id"]
+
         else:
            preference = "False"
 
