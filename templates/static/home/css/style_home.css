@@ -6,6 +6,14 @@ html{
 body{
     background-color:rgb(255, 255, 255);
 }
+.form-control {
+    font-size: 1.5rem;
+}
+.dropdown-item{
+    font-size: 1.5rem;
+}
+
+
 
 
 /************* IMAGENS *************/
@@ -29,6 +37,40 @@ body{
 /**************************/
 
 /************* BUTTONS *************/
+
+.btn-info:hover {
+    color: #000;
+    background-color: #a9e5ff;
+    border-color: #48aeff;  
+}
+.mudabtn{
+    
+}
+.btn-ocultar{
+    background-color: #a9e5ff;
+    border-color: #48aeff;
+    border-radius: 5px;
+    border-width: 10%;
+    border-style: solid;
+    border-width: 1px;
+    height: 35px;
+    font-size: 1.5rem;
+    display: none;
+}
+.mudabtn{
+    background-color: #ffff;
+    border-color: #48aeff;
+    border-radius: 5px;
+    border-width: 10%;
+    border-style: solid;
+    border-width: 1px;
+    height: 35px;
+    font-size: 1.5rem;
+    
+}
+.mudabtn{
+    color: #48aeff;
+}
 
 .btn-icones{
     background: none;
@@ -81,7 +123,7 @@ body{
 
 /*container do menu navbar*/
 .container-nav {
-    border-bottom: solid 3px black;
+    box-shadow: 7px 5px 13px 9px rgb(0 0 0 / 9%);
 }
 
 /*Altera container que contem o menu baixo e o menu cima*/
@@ -192,6 +234,13 @@ body{
     color: #fff;
     background-color: #48aeff;
     border-color: none;
+    margin-bottom: 8px;
+    border-radius: 15px;
+    width: 95%;
+}
+.btn-ver-detalhes{
+    display: flex;
+    justify-content: center;
 }
 
 
@@ -208,12 +257,14 @@ body{
     border-bottom: solid black;
 }
 
-#btn-esconde-mostra-filtro{
+.btn-esconde-filtro{
     display: none;
 }
 
 .btn-filtro{
     font-size: 1.5rem;
+    width: 50%;
+    border-radius: 5px;
 }
 
 
@@ -264,9 +315,24 @@ body{
     .btn-esconde-mostra-filtro{
         display: none;
     }
+    .active{
+        display: block;
+    }
     .navbar {
         width: 100%;
+        justify-content: center;
     }
+    .navbar-nav{
+        width: 100%;
+    }
+    .nav-item{
+        justify-content: start;
+    }
+    .btn-entrar{
+        width:100px;
+    }
+
+    
 
     /*div por de baixo do navbar*/
     .container-nav{
@@ -318,11 +384,20 @@ body{
     html{
         font-size: 50%;
     }
-    #btn-esconde-mostra-filtro{
+    .btn-esconde-filtro{
         display: block;
+        
     }
+    
+
+    .active{
+        display: none;
+    }
+
     .coluna-filtro {
         width: 100%;
+        
+        
     }
     .conteudo-principal{
         flex-direction: column;
@@ -338,6 +413,10 @@ body{
     .imagem-do-produto{
         display: flex;
         justify-content: center;
+    }
+
+    .btn-ocultar{
+        display: block;
     }
     
 }
