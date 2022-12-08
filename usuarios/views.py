@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from produto.models import Produto
-from .models import Endereco, Usuario
+from .models import Endereco, Usuario, Usuario_endereco
 from hashlib import sha256 ## 
 
 def login(request):
@@ -80,7 +80,8 @@ def perfil(request):
         usuario = Usuario.objects.get(id = request.session['usuario'])
         usuariostr = str(usuario.id)
         #lista de todos os endereços deste usuario:
-        enderecos = Endereco.objects.raw('SELECT * FROM (usuarios_endereco INNER JOIN usuarios_usuario_endereco ON usuarios_endereco.id = usuarios_usuario_endereco.endereco_id) INNER JOIN usuarios_usuario ON usuarios_usuario_endereco.user_id = usuarios_usuario.id WHERE  usuarios_usuario_endereco.user_id = %s;', [usuariostr])
+        #enderecos = Endereco.objects.raw('SELECT * FROM (usuarios_endereco INNER JOIN usuarios_usuario_endereco ON usuarios_endereco.id = usuarios_usuario_endereco.endereco_id) INNER JOIN usuarios_usuario ON usuarios_usuario_endereco.user_id = usuarios_usuario.id WHERE  usuarios_usuario_endereco.user_id = %s;', [usuariostr])
+        enderecos = Usuario_endereco.objects.filter(user = usuario.id)
 
         #carregar a quantidade na lista de favoritos:
         fav = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_favorito ON produto_produto.id = produto_favorito.prod_id) INNER JOIN usuarios_usuario ON produto_favorito.user_id = usuarios_usuario.id WHERE  produto_favorito.user_id = %s;', [usuariostr])
@@ -142,4 +143,73 @@ def update_perfil(request):
         return redirect('login')
 
     
+def update_endereco(request, id):
+    if request.session.get('usuario'):
+        usuario = Usuario.objects.get(id = request.session['usuario'])
+        rua = request.POST.get('rua')
+        numero = request.POST.get('numero')
+        bairro = request.POST.get('bairro')
+        cidade = request.POST.get('cidade')
+        cep = request.POST.get('cep')
+        complemento = request.POST.get('complemento')
+        
+        
 
+         ## SE os campos obrigatórios for igual a zero 
+        if len(rua.strip()) == 0 or len(numero.strip()) == 0 or len(bairro.strip()) == 0 or len(cidade.strip()) == 0 or len(cep.strip()) == 0: 
+            ##len() se refere ao tamanho e .strip() retira os espaços do inicio e do final.
+            return redirect('/auth/minha_conta/perfil/?status=2')
+
+        try:
+            endereco = Endereco(id = id,  rua = rua, numero = numero, bairro = bairro, cidade= cidade, cep = cep, complemento = complemento)
+            endereco.save()
+
+            return redirect('/auth/minha_conta/perfil/?status=1')
+        except:
+            return redirect('/auth/minha_conta/perfil/?status=5')
+
+    else:
+        return redirect('login')
+
+def endereco_add(request):
+    if request.session.get('usuario'):
+        usuario = Usuario.objects.get(id = request.session['usuario'])
+        rua = request.POST.get('rua')
+        numero = request.POST.get('numero')
+        bairro = request.POST.get('bairro')
+        cidade = request.POST.get('cidade')
+        cep = request.POST.get('cep')
+        complemento = request.POST.get('complemento')
+        
+        
+
+         ## SE os campos obrigatórios for igual a zero 
+        if len(rua.strip()) == 0 or len(numero.strip()) == 0 or len(bairro.strip()) == 0 or len(cidade.strip()) == 0 or len(cep.strip()) == 0: 
+            ##len() se refere ao tamanho e .strip() retira os espaços do inicio e do final.
+            return redirect('/auth/minha_conta/perfil/?status=2')
+
+        try:
+            endereco = Endereco(rua = rua, numero = numero, bairro = bairro, cidade= cidade, cep = cep, complemento = complemento)
+            endereco.save()
+
+            usuario_endereco = Usuario_endereco(user_id = usuario.id, endereco_id = endereco.id)
+            usuario_endereco.save()
+
+            return redirect('/auth/minha_conta/perfil/?status=1')
+        except:
+            return redirect('/auth/minha_conta/perfil/?status=5')
+
+    else:
+        return redirect('login')
+
+def endereco_remove(request, id):
+    if request.session.get('usuario'):
+        
+        endereco = Endereco.objects.get(id = id)
+
+        endereco.delete()## deleta no banco de Dados
+        return redirect('/auth/minha_conta/perfil/?status=6')
+
+
+    else:
+        return redirect('login')

@@ -54,8 +54,27 @@
             
             {% endblock %}
           </div>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item">
+                {% if pagina.has_previous %}
+                <a class="page-link" href="?page={{pagina.previous_page_number}}" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+                {% endif %}
+              </li>
+              <li class="page-item"><a class="page-link">{{pagina.number}}</a></li>
+              <li class="page-item">
+                {% if pagina.has_next %}
+                <a class="page-link" href="?page={{pagina.next_page_number}}" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+                {% endif %}
+              </li>
+            </ul>
+        
           <div class="coluna-produtos">
-            
+
               {% for produto in produtos %}
                   <div class="produto-coontainer col-md">
                     <div class="card" style="width: 18rem;">
@@ -81,6 +100,7 @@
                   </div>
             {% endfor %}
           </div>
+        </nav>
         </selection>
       </main>
 

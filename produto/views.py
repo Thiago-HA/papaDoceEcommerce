@@ -1,7 +1,7 @@
 from multiprocessing import context
 from django.shortcuts import HttpResponse, redirect, render
 import mercadopago
-from usuarios.models import Usuario
+from usuarios.models import Usuario, Usuario_endereco
 from produto.models import Carrinho, Produto
 
 def verifica_carrinho(request):
@@ -9,7 +9,7 @@ def verifica_carrinho(request):
         usuario = Usuario.objects.get(id = request.session['usuario'])
         usuariostr = str(usuario.id)
 
-        carrinho = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_carrinho ON produto_produto.id = produto_carrinho.produto_id) INNER JOIN usuarios_usuario ON produto_carrinho.user_id = %s;', [usuariostr])
+        carrinho = Carrinho.objects.filter(user_id = usuario.id)
         if carrinho:
             return redirect('carrinho')
         else:
@@ -24,14 +24,18 @@ def carrinho(request):
         usuariostr = str(usuario.id)
         status = request.GET.get('status')
 
-        carrinho = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_carrinho ON produto_produto.id = produto_carrinho.produto_id) INNER JOIN usuarios_usuario ON produto_carrinho.user_id = usuarios_usuario.id WHERE  produto_carrinho.user_id = %s;', [usuariostr])
+        endereco = Usuario_endereco.objects.filter(user = usuario.id)
+
+        carrinho = Carrinho.objects.filter(user_id = usuario.id)
+        # carrinho = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_carrinho ON produto_produto.id = produto_carrinho.produto_id) INNER JOIN usuarios_usuario ON produto_carrinho.user_id = usuarios_usuario.id WHERE  produto_carrinho.user_id = %s;', [usuariostr])
         qtd_carrinho = len(carrinho)
 
         produtos = Carrinho.objects.filter(user = usuario)
         total = 0
         for produtos in produtos :
             precoo = produtos.produto.preco
-            total= float(precoo) + total
+            total = float(precoo) + total
+            total = round(total, 2) # aparecer duas casas depois da virgula  
 
         
         
@@ -72,6 +76,7 @@ def carrinho(request):
             'usuario' : usuario,
             'preference' : preference,
             'total' : total,
+            'endereco' : endereco,
         }
         return render(request, 'carrinho.html', context)
     else:
@@ -85,12 +90,10 @@ def carrinho_add(request, id):
         produto = Produto.objects.get(id = id)
         carrinho = Carrinho.objects.filter(produto_id = produto.id , user_id = usuario.id) 
 
-        if carrinho:
-            return redirect('home')
-        else:
-            carrinho_cadastro = Carrinho(user = usuario, produto = produto)
-            carrinho_cadastro.save()## salva no banco de Dados
-            return redirect('carrinho')
+        
+        carrinho_cadastro = Carrinho(user = usuario, produto = produto)
+        carrinho_cadastro.save()## salva no banco de Dados
+        return redirect('carrinho')
 
     else:
         return redirect('login')
@@ -98,14 +101,12 @@ def carrinho_add(request, id):
 
 def carrinho_remove(request, id):
     if request.session.get('usuario'):
-        usuario = Usuario.objects.get(id = request.session['usuario'])
-        produto = Produto.objects.get(id = id)
-        carrinho = Carrinho.objects.filter(produto_id = produto.id , user_id = usuario.id)
+        
+        carrinho = Carrinho.objects.get(id = id)
 
         #se ele já ta na lista deleta:
-        if carrinho:
-            carrinho.delete()## deleta no banco de Dados
-            return redirect('verifica_carrinho')
+        carrinho.delete()## deleta no banco de Dados
+        return redirect('verifica_carrinho')
 
 
     else:

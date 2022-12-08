@@ -20,15 +20,37 @@
             </div>
         {% else %}
         
+        <div class="selecao-endereco col-md">
+        {% for endereco in endereco %}
+
+            <div class="produto-coontainer col-md">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body card-info">
+                    <h5 class="card-title ">Cidade: {{endereco.endereco.cidade}}</h5>
+                    <h5 class="card-subtitle ">Rua: {{endereco.endereco.rua}}</h5>
+                    </div>
+                    <a href="" class="btn btn-info">Ver detalhes</a>
+                    <br>
+                    <input type = "checkbox" id = "subscribeNews" name = "subscribe" value = "newsletter">
+                    <br>
+                </div>
+            </div>
+        
+        {% endfor %}
+
+        <a href="" class="btn btn-info">Novo endereço</a>
+        </div>
+
         {% for carrinho in carrinho %}
+                
                 <div class="produto-coontainer col-md">
                     <div class="card" style="width: 18rem;">
-                        <img src="{{carrinho.imagem.url}}" class="card-img-top" alt="...">
+                        <img src="{{carrinho.produto.imagem.url}}" class="card-img-top" alt="...">
                         <div class="card-body card-info">
-                        <h5 class="card-title ">{{carrinho.titulo}}</h5>
-                        <h1 class="card-subtitle ">R$: {{carrinho.preco}}</h1>
+                        <h5 class="card-title ">{{carrinho.produto.titulo}}</h5>
+                        <h1 class="card-subtitle ">R$: {{carrinho.produto.preco}}</h1>
                         </div>
-                        <a href="{% url 'ver_produto' carrinho.id %}" class="btn btn-info">Ver detalhes</a>
+                        <a href="{% url 'ver_produto' carrinho.produto.id %}" class="btn btn-info">Ver detalhes</a>
                         <br>
                         <a href="{% url 'carrinho_remove' carrinho.id %}" class="btn btn-danger">Remover</a>
                         <br>

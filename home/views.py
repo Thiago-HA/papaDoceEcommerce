@@ -1,6 +1,7 @@
 from django.shortcuts import HttpResponse, redirect, render
 from usuarios.models import Usuario
 from produto.models import Favorito, Produto, Categoria
+from django.core.paginator import Paginator
 
 # Create your views here.
 def pagina_home(request):
@@ -19,6 +20,9 @@ def pagina_home(request):
         carrinho = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_carrinho ON produto_produto.id = produto_carrinho.produto_id) INNER JOIN usuarios_usuario ON produto_carrinho.user_id = usuarios_usuario.id WHERE  produto_carrinho.user_id = %s;', [usuariostr])
         qtd_carrinho = len(carrinho)
 
+        paginator = Paginator(produtos, 2)
+        pages = request.GET.get('page')
+        pagina = paginator.get_page(pages)
 
         context = {
             'categorias': categorias,
@@ -27,6 +31,7 @@ def pagina_home(request):
             'qtd_favoritos' : qtd_favoritos,
             'qtd_carrinho' : qtd_carrinho,
             'usuario' : usuario,
+            'pagina' : pagina,
         }
 
         return render(request, 'home_autenticado.html', context)

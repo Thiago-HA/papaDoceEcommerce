@@ -67,6 +67,15 @@
                     </div>
                 {% endif %}
 
+                {% if status == '6' %}
+                    <div class="alert alert-warning d-flex align-items-center" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                        <div>
+                                Endereco Removido Com sucesso!
+                        </div>
+                    </div>
+                {% endif %}
+
                 {% if status == '1' %}
                     <div class="alert alert-success d-flex align-items-center" role="alert">
                         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
@@ -93,20 +102,108 @@
                     <br></br>
                 </form>
                 <div class="row mt-3">
+
                     {% for endereco in endereco %}
-                        <div class="">
+                        <div class="container-endereco">
                             <div class="">
-                                <p>{{endereco.rua}}</p>
-                                <p>{{endereco.numero}}</p>
-                                <p>{{endereco.bairro}}</p>
-                                <p>{{endereco.cidade}}</p>
-                                <p>{{endereco.cep}}</p>
-                                <p>{{endereco.complemento}}</p>
+                                <p>{{endereco.endereco.rua}}</p>
+                                <p>{{endereco.endereco.numero}}</p>
+                                <p>{{endereco.endereco.bairro}}</p>
+                                <p>{{endereco.endereco.cidade}}</p>
+                                <p>{{endereco.endereco.cep}}</p>
+                                <p>{{endereco.endereco.complemento}}</p>
                             </div>
-                            <a href="" class="btn btn-primary"> Editar </a>
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#model-editar-endereco{{endereco.endereco.id}}">Editar</button>
+                            <a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#model-remover-endereco{{endereco.endereco.id}}">Remover Endereço</a>
+                            
+                            <!-- Modal Editar endereco-->
+                            <div class="modal fade" id="model-editar-endereco{{endereco.endereco.id}}" tabindex="-1" aria-labelledby="{{endereco.endereco.id}}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="model-editar-endereco{{endereco.endereco.id}}">Editar Endereço</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form name="form" id="form" method="post" action="{% url 'update_endereco' endereco.endereco.id %}">
+                                            {% csrf_token %}
+                                            <div class="row mt-3">
+                                                <div class="form-group mt-4"><label class="labels">Rua</label><input name="rua" type="text" class="form-control" value="{{endereco.endereco.rua}}"></div>
+                                                <div class="form-group mt-4 "><label class="labels">Numero</label><input name="numero" type="text" class="form-control"  value="{{endereco.endereco.numero}}"></div>
+                                                <div class="form-group mt-4"><label class="labels">Bairro</label><input name="bairro" type="text" class="form-control" value="{{endereco.endereco.bairro}}"></div>
+                                                <div class="form-group mt-4"><label class="labels">Cidade</label><input name="cidade" type="text" class="form-control"  value="{{endereco.endereco.cidade}}"></div>
+                                                <div class="form-group mt-4"><label class="labels">CEP</label><input name="cep" type="text" class="form-control" value="{{endereco.endereco.cep}}"></div>
+                                                <div class="form-group mt-4"><label class="labels">Complemento</label><input name="complemento" type="text" class="form-control" value="{{endereco.endereco.complemento}}"></div>
+                                            </div>
+                                            <div class="mt-5 text-center">
+                                                <button class="btn btn-success profile-button" type="submit">Salvar Alterações</button>
+                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">cancelar</button>
+                                            </div>
+                                            <br>
+                                        </form>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            
+                             <!-- Modal Remover endereco-->
+                             <div class="modal fade" id="model-remover-endereco{{endereco.endereco.id}}" tabindex="-1" aria-labelledby="model-remover-endereco{{endereco.endereco.id}}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="model-remover-endereco{{endereco.endereco.id}}">Tem certeza que deseja remover este Endereço?</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Todos os dados de seu endereço serão perdidos!
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                                        <a href="{% url 'endereco_remove' endereco.endereco.id %}" type="button" class="btn btn-danger" >Remover</a>
+                                      </div>
+                                </div>
+                                </div>
+                            </div>
+
                         </div>
                     {% endfor %}
+
+
+                    <!-- Modal Adicionar novo endereco-->
+                    <div class="modal fade" id="model-adicionar-endereco" tabindex="-1" aria-labelledby="model-adicionar-endereco" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="model-adicionar-endereco">Preenche os dados de seu Novo Endereço</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form name="form" id="form" method="post" action="{% url 'endereco_add' %}">
+                                    {% csrf_token %}
+                                    <div class="row mt-3">
+                                        <div class="form-group mt-4"><label class="labels">Rua</label><input name="rua" type="text" class="form-control" value=""></div>
+                                        <div class="form-group mt-4 "><label class="labels">Numero</label><input name="numero" type="text" class="form-control"  value=""></div>
+                                        <div class="form-group mt-4"><label class="labels">Bairro</label><input name="bairro" type="text" class="form-control" value=""></div>
+                                        <div class="form-group mt-4"><label class="labels">Cidade</label><input name="cidade" type="text" class="form-control"  value=""></div>
+                                        <div class="form-group mt-4"><label class="labels">CEP</label><input name="cep" type="text" class="form-control" value=""></div>
+                                        <div class="form-group mt-4"><label class="labels">Complemento</label><input name="complemento" type="text" class="form-control" value=""></div>
+                                    </div>
+                                    <div class="mt-5 text-center">
+                                        <button class="btn btn-success profile-button" type="submit">Adicionar</button>
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">cancelar</button>
+                                    </div>
+                                    <br>
+                                </form>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-5 text-center"><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#model-adicionar-endereco">Novo Endereco</button></div>
                 </div>
+                
             </div>
         </div>
     </div>
