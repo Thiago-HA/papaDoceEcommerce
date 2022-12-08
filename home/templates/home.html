@@ -19,9 +19,11 @@
         <selection class="conteudo-principal">
 
           
-          <button onclick="toggle('coluna-filtro')">Filtrar</button>
+          <button class="btn-ocultar" id="id-btn-ocultar" type="button" onclick="esconder('filter-colum');"><p class "titulobtn" >Ocultar Filtros</p></button>
 
-          <div class="coluna-filtro">
+         
+
+          <div class="coluna-filtro" id="filter-colum">
             {% block 'filtros' %}
             
               <form class="filtrosBK" method="POST" action={% url 'filtrar' %}> {% csrf_token %}
@@ -56,7 +58,7 @@
                   <input type="checkbox" class="form-check-input">
                   <label class="form-check-label" for="exampleCheck1">Mais de R$ 200,00</label>
                 </div>
-                <button type="submit" class="btn btn-primary btn-filtro">Filtrar</button>
+                <button type="submit" class="btn btn-info btn-filtro">Filtrar</button>
               </form>
             
             {% endblock %}
@@ -82,7 +84,9 @@
                           <p class="card-title ">{{produto.titulo}}</p>
                           <p class="card-subtitle ">R$: {{produto.preco}}</p>
                         </div>
+                        <div class="btn-ver-detalhes">
                         <a href="{% url 'ver_produto' produto.id %}" class="btn btn-info">Ver detalhes</a>
+                        </div>
                         
                       </div>
                   
