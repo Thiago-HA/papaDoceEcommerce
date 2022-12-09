@@ -74,7 +74,18 @@ def ver_produto(request, id):
 
         return render(request, 'ver_produto_autenticado.html', context)
     else:
-        return render(request,'ver_produto.html')
+        produto = Produto.objects.get(id = id)
+
+        #arredondamento do preço do produto para mostrar sempre duas casas depois da virgula:
+        preco_arredondado = '%.2f' %(produto.preco)
+        preco_arredondado = preco_arredondado.replace(".", ",")
+
+        context = {
+            'produto' : produto,
+            'preco' : preco_arredondado,
+        }
+
+        return render(request, 'ver_produto.html', context)
 
 def filtrar(request):
     

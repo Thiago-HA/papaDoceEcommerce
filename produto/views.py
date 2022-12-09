@@ -1,7 +1,7 @@
 from multiprocessing import context
 from django.shortcuts import HttpResponse, redirect, render
 import mercadopago
-from usuarios.models import Usuario, Usuario_endereco
+from usuarios.models import Endereco, Usuario, Usuario_endereco
 from produto.models import Carrinho, Produto
 
 def verifica_carrinho(request):
@@ -23,6 +23,7 @@ def carrinho(request):
         usuario = Usuario.objects.get(id = request.session['usuario'])
         usuariostr = str(usuario.id)
         status = request.GET.get('status')
+        resposta = request.GET.get('resposta')
 
         endereco = Usuario_endereco.objects.filter(user = usuario.id)
 
@@ -84,6 +85,7 @@ def carrinho(request):
             'preference' : preference,
             'total' : total,
             'endereco' : endereco,
+            'resposta' : resposta,
         }
         return render(request, 'carrinho.html', context)
     else:
@@ -115,6 +117,38 @@ def carrinho_remove(request, id):
         carrinho.delete()## deleta no banco de Dados
         return redirect('verifica_carrinho')
 
+
+    else:
+        return redirect('login')
+
+
+## este é a mesma função de adicionar endereco da tela de perfil porem redirecona ao carrinho.
+def endereco_add_carrinho(request):
+    if request.session.get('usuario'):
+        usuario = Usuario.objects.get(id = request.session['usuario'])
+        rua = request.POST.get('rua')
+        numero = request.POST.get('numero')
+        bairro = request.POST.get('bairro')
+        cidade = request.POST.get('cidade')
+        cep = request.POST.get('cep')
+        complemento = request.POST.get('complemento')
+        
+        
+
+        # if len(rua.strip()) == 0 or len(numero.strip()) == 0 or len(bairro.strip()) == 0 or len(cidade.strip()) == 0 or len(cep.strip()) == 0: 
+        #     ##len() se refere ao tamanho e .strip() retira os espaços do inicio e do final.
+        #     return redirect('/produto/meu_carrinho/?resposta=2')
+
+        try:
+            endereco = Endereco(rua = rua, numero = numero, bairro = bairro, cidade= cidade, cep = cep, complemento = complemento)
+            endereco.save()
+
+            usuario_endereco = Usuario_endereco(user_id = usuario.id, endereco_id = endereco.id)
+            usuario_endereco.save()
+
+            return redirect('/produto/meu_carrinho/')
+        except:
+            return redirect('/produto/meu_carrinho/?resposta=1')
 
     else:
         return redirect('login')
