@@ -1,0 +1,119 @@
+{% extends 'base_autenticado.html' %}
+{% load static %}
+
+
+
+{% block titulo %} 
+    Identificação
+{% endblock titulo %}
+
+
+{% block 'conteudo' %}
+
+{% if resposta == '1' %}
+                    <div class="alert alert-warning d-flex align-items-center" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                        <div>
+                                Erro interno do sistema!
+                        </div>
+                    </div>
+            {% endif %}
+
+            {% if resposta == '2' %}
+                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                        <div>
+                                Preencher todos os campos obrigatórios.
+                        </div>
+                    </div>
+            {% endif %}
+
+<!-- Modal Adicionar novo endereco-->
+<div class="modal fade" id="model-adicionar-endereco" tabindex="-1" aria-labelledby="model-adicionar-endereco" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="model-adicionar-endereco">Preenche os dados de seu Novo Endereço</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form name="form" id="form" method="post" action="{% url 'endereco_add_carrinho' %}">
+                {% csrf_token %}
+                <div class="row mt-3">
+                    <div class="form-group mt-4"><label class="labels">Rua</label><input name="rua" type="text" class="form-control" value=""></div>
+                    <div class="form-group mt-4 "><label class="labels">Numero</label><input name="numero" type="text" class="form-control"  value=""></div>
+                    <div class="form-group mt-4"><label class="labels">Bairro</label><input name="bairro" type="text" class="form-control" value=""></div>
+                    <div class="form-group mt-4"><label class="labels">Cidade</label><input name="cidade" type="text" class="form-control"  value=""></div>
+                    <div class="form-group mt-4"><label class="labels">CEP</label><input name="cep" type="text" class="form-control" value=""></div>
+                    <div class="form-group mt-4"><label class="labels">Complemento</label><input name="complemento" type="text" class="form-control" value=""></div>
+                </div>
+                <div class="mt-5 text-center">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">cancelar</button>
+                    <button class="btn btn-success profile-button" type="submit">Salvar</button>
+                </div>
+                <br>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+
+<br>
+    <h1>Selecione o Endereço:</h1>
+
+    <div class="container-produtos-carrinho">
+        
+        <div class="selecao-endereco col-md">
+        
+            <form name="form-endereco" id="form-endereco" method="post" action="{% url 'endereco_add_carrinho' %}">
+                {% csrf_token %}
+            </form>
+
+        {% for endereco in endereco %}
+
+            <div class="produto-coontainer col-md">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body card-info">
+                        <h1 class="cidade ">Cidade: {{endereco.endereco.cidade}}</h1>
+                        <h5 class="rua ">CEP: {{endereco.endereco.cep}}</h5>
+                        <h5 class="rua ">Rua: {{endereco.endereco.rua}}, {{endereco.endereco.numero}} </h5>
+                        <h5 class="rua ">Bairro: {{endereco.endereco.bairro}}</h5>
+                    </div>
+                    <br>
+                    <form name="form" id="form" method="post" action="{% url 'pagamento' %}">
+                        {% csrf_token %}
+
+                        <INPUT TYPE="RADIO" NAME="endereco" VALUE="{{endereco.endereco.id}}" CHECKED> 
+                    
+                    <br>
+                </div>
+            </div>
+        
+        {% endfor %}
+            
+
+        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#model-adicionar-endereco">Novo Endereco</button>
+        </div>
+        
+
+        {% for carrinho in carrinho %}
+                
+                <div class="produto-coontainer col-md">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{carrinho.produto.imagem.url}}" class="card-img-top" alt="...">
+                        <div class="card-body card-info">
+                        <h5 class="card-title ">{{carrinho.produto.titulo}}</h5>
+                        <h1 class="card-subtitle ">R$: {{carrinho.produto.preco}}</h1>
+                        </div>
+                        <br>
+                        <a href="{% url 'carrinho_remove_endereco' carrinho.id %}" class="btn btn-danger">Remover</a>
+                        <br>
+                    </div>
+                </div>
+        
+        {% endfor %}
+            Total: {{total}}
+        
+            <button class="btn btn-success profile-button" type="submit">Seguir para pagamento</button>
+        </form>
+{% endblock %}

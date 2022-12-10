@@ -6,6 +6,12 @@ from usuarios.models import Endereco, Usuario
 class Pedido(models.Model):
     data_emissao = models.DateField(auto_now_add=True)
     id_cliente = models.ForeignKey(Usuario, verbose_name='Cliente', on_delete=models.DO_NOTHING)
+    rua = models.CharField(max_length=100, null=False, blank=False)
+    numero = models.CharField( max_length=15 )
+    bairro = models.CharField( max_length=30, null=False, blank=False)
+    cidade = models.CharField( max_length=30, null=False, blank=False)
+    cep = models.CharField( max_length=10, null=False, blank=False)
+    complemento = models.CharField( max_length=100)
     total = models.DecimalField("Total", max_digits=8, decimal_places=2)
 
 
@@ -13,7 +19,7 @@ class Pedido(models.Model):
     class Meta:
         verbose_name = 'Pedido'
 
-    def __str__(self) -> str:
+    def __int__(self) -> str:
         return self.id_cliente
 
 class Pedido_Produto(models.Model):

@@ -9,6 +9,10 @@
 
 
 {% block 'conteudo' %}
+
+    <br>
+    <h1>Seu Carrinho:</h1>
+
     <div class="container-produtos-carrinho">
     {% if status == '1' %}
             <div class="produto-coontainer col-md">
@@ -134,6 +138,6 @@
 
     {% endif %}
 
-
+    <a href="{% url 'endereco_entrega' %}" class="btn btn-danger">Continuar</a>
 
 {% endblock %}
