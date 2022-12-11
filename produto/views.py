@@ -24,9 +24,6 @@ def carrinho(request):
         usuario = Usuario.objects.get(id = request.session['usuario'])
         usuariostr = str(usuario.id)
         status = request.GET.get('status')
-        resposta = request.GET.get('resposta')
-
-        endereco = Usuario_endereco.objects.filter(user = usuario.id)
 
         carrinho = Carrinho.objects.filter(user_id = usuario.pk)
         # carrinho = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_carrinho ON produto_produto.id = produto_carrinho.produto_id) INNER JOIN usuarios_usuario ON produto_carrinho.user_id = usuarios_usuario.id WHERE  produto_carrinho.user_id = %s;', [usuariostr])
@@ -40,42 +37,10 @@ def carrinho(request):
             total = round(total, 2) # aparecer duas casas depois da virgula  
 
         
-        
-        #total = Produto.objects.raw('SELECT SUM(preco) FROM (produto_produto INNER JOIN produto_carrinho ON produto_produto.id = produto_carrinho.produto_id) INNER JOIN usuarios_usuario ON produto_carrinho.user_id = usuarios_usuario.id WHERE  produto_carrinho.user_id = %s;', [usuariostr])
-
         #carregar os dados da quantdade da lista de favoritos:
         fav = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_favorito ON produto_produto.id = produto_favorito.prod_id) INNER JOIN usuarios_usuario ON produto_favorito.user_id = usuarios_usuario.id WHERE  produto_favorito.user_id = %s;', [usuariostr])
         qtd_favoritos = len(fav)
 
-
-        if carrinho:
-             # Adicione as credenciais
-            sdk = mercadopago.SDK("TEST-7206970217417319-112923-f38efa38057699afb94cdd1073d179c1-221366732")
-            
-            # Cria um item na preferência
-            preference_data = {
-                "items": [
-                    {
-                        "title": "Produtos",
-                        "quantity": 1,
-                        "unit_price": total
-                    },
-                ],
-                "back_urls": {
-                    "success": "http://127.0.0.1:8000/pedido/verifica_pagamento/",
-                    "failure": "http://127.0.0.1:8000/pedido/verifica_pagamento/",
-                }
-                
-            }
-            
-
-            # Cria a preferência
-            preference_response = sdk.preference().create(preference_data)
-            preference = preference_response["response"]
-            preference = preference["id"]
-
-        else:
-           preference = "False"
 
         context = {
             'carrinho' : carrinho,
@@ -83,9 +48,7 @@ def carrinho(request):
             'qtd_carrinho' : qtd_carrinho,
             'qtd_favoritos' : qtd_favoritos,
             'usuario' : usuario,
-            'preference' : preference,
             'total' : total,
-            'endereco' : endereco,
         }
         return render(request, 'carrinho.html', context)
     else:
@@ -133,11 +96,6 @@ def endereco_add_carrinho(request):
         cep = request.POST.get('cep')
         complemento = request.POST.get('complemento')
         
-        
-
-        # if len(rua.strip()) == 0 or len(numero.strip()) == 0 or len(bairro.strip()) == 0 or len(cidade.strip()) == 0 or len(cep.strip()) == 0: 
-        #     ##len() se refere ao tamanho e .strip() retira os espaços do inicio e do final.
-        #     return redirect('/produto/endereco_entrega/?resposta=2')
 
         try:
             endereco = Endereco(rua = rua, numero = numero, bairro = bairro, cidade= cidade, cep = cep, complemento = complemento)

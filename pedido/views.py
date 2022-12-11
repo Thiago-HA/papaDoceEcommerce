@@ -70,6 +70,55 @@ def verifica_pagamento(request):
     else:
         return redirect('login')
 
+def meus_pedidos(request):
+    if request.session.get('usuario'):
+        usuario = Usuario.objects.get(id = request.session['usuario'])
+        usuariostr = str(usuario.id)
+        status = request.GET.get('status')
+
+        carrinho = Carrinho.objects.filter(user_id = usuario.pk)
+        qtd_carrinho = len(carrinho)
+
+        pedidos = Pedido.objects.filter(id_cliente_id = usuario.pk)
+        # pedido_produto = Pedido_Produto.objects.all()
+        
+        produto_pedido = Pedido_Produto.objects.raw('SELECT * FROM (pedido_pedido_produto INNER JOIN pedido_pedido ON pedido_pedido.id = pedido_pedido_produto.pedido_id_id) INNER JOIN usuarios_usuario ON usuarios_usuario.id = pedido_pedido.id_cliente_id WHERE  usuarios_usuario.id = %s group by pedido_pedido_produto.pedido_id_id;', [usuariostr])
+        
+        #fazer outro raw :
+        #um para pegar os produtos e outro para pegar os enderecos (todos com filtro de usuario)
+            
+
+        #carregar os dados da quantdade da lista de favoritos:
+        fav = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_favorito ON produto_produto.id = produto_favorito.prod_id) INNER JOIN usuarios_usuario ON produto_favorito.user_id = usuarios_usuario.id WHERE  produto_favorito.user_id = %s;', [usuariostr])
+        qtd_favoritos = len(fav)
+
+        context = {
+            'qtd_favoritos' : qtd_favoritos,
+            'qtd_carrinho' : qtd_carrinho,
+            'usuario' : usuario,
+            'pedidos' : pedidos,
+            'status':status,
+            'produto_pedido' : produto_pedido,
+        }
+        
+        return render(request, 'pedidos.html', context)
+
+    else:
+        return redirect('login')
+
+def verifica_meus_pedidos(request):
+    if request.session.get('usuario'):
+        usuario = Usuario.objects.get(id = request.session['usuario'])
+
+        pedidos = Pedido.objects.filter(id_cliente_id = usuario.pk)
+        if pedidos:
+            return redirect('/pedido/meus_pedidos/')
+        else:
+            return redirect('/pedido/meus_pedidos/?status=1')
+
+    else:
+        return redirect('login')
+
 
 
 
