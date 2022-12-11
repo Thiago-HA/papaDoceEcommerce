@@ -1,0 +1,183 @@
+html{
+    /* a cada 1 rem será considerado 10px */
+    font-size: 62.5%;
+    
+}
+
+body{
+    background-color:rgb(255, 255, 255);
+    
+}
+
+/*  FONTES -- ESCRITAS */
+
+.form-control {
+    font-size: 1.5rem;
+}
+.dropdown-item{
+    font-size: 1.5rem;
+}
+.card-title-ver{
+    font-size: 2.5rem;
+}
+.card-subtitle-ver{
+    font-size: 4rem;
+}
+
+
+
+
+
+
+
+
+
+.conteudo-ver{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    border-radius: 4px;
+    align-items: center;
+}
+
+.produto-coontainer-ver{
+    gap: 10px; 
+    width: 90%;
+    max-width: 1000px;
+    display: flex;
+    justify-content: center;
+    box-shadow: 2.5px 2.5px 3px rgb(0 0 0 / 9%);
+}
+
+/* IMAGENS */
+
+.card-img-top-ver{
+    width: 462px;
+    height: 400px;
+}
+
+
+/* COLUNA INFORMAÇÔES */
+
+.card-ver{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-heart-ver{
+    padding-right: 90%;
+}
+
+.card-info-ver{
+    justify-content: space
+    height: 266px;
+    height: 50%;
+}
+.card-body-ver{
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+/*   COLUNA DAS INFORMAÇÔES ADICIONAIS   */
+
+.col-descricao{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.desc-ver{
+    display: flex;
+    flex-direction: column;
+    box-shadow: none;
+}
+
+/*   TABELA    */
+
+.table-ver{
+    width: 50%;
+    font-size: 2rem
+    
+}
+.bk-tabela1{
+    background-color: #e5f4ff;
+    padding: 8px; 
+    box-shadow: inset 0px -2px 0px 0px rgb(0 0 0 / 2%);  
+}
+.bk-tabela2{
+    background-color: #ededed4a;
+    padding: 8px;
+    box-shadow: inset 0px -2px 0px 0px rgb(0 0 0 / 2%);
+}
+.desc-h1{
+    font-size: 2.9rem;
+    color: #48aeff;
+    
+}
+.desc-text{
+    font-size: 2rem;
+    width: 70%;
+}
+
+
+
+
+@media (max-width: 992px){
+    html{
+        font-size: 55%;
+    }
+
+}
+@media (max-width: 850px){
+    
+    .card-img-top-ver{
+        width: 396px;
+        height: 334px;
+    }
+}
+
+@media (max-width: 700px){
+    html{
+        font-size: 50% ;       
+    }
+    .card-img-top-ver{
+        width: 312px;
+        height: 250px;
+    }
+    .produto-coontainer-ver{
+        gap: 10px; 
+        width: 90%;
+        max-width: 1000px;
+        display: flex;
+        justify-content: center;
+        box-shadow: 2.5px 2.5px 3px rgb(0 0 0 / 9%);
+        flex-direction: column;
+        align-items: center;
+    }
+    .card-title-ver {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+    .btn-heart-ver{
+        padding: 0%;
+    }
+    .desc-text{
+        font-size: 2rem;
+        width: 90%;
+    }
+    .table-ver{
+        width: 90%;
+    }
+    .ver{
+        width: 75%;
+    }
+
+
+}
