@@ -72,6 +72,17 @@ html{
     padding: 6px;
     border-radius: 5px;
 }
+
+.card-ops{
+    width: 50rem;
+    padding: 5%;
+    height: 18rem;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    box-shadow: -1px 2px 3px 1px rgb(0 0 0 / 9%);
+}
 @media (max-width: 1750px){
     html{
         font-size: 58%;
@@ -97,6 +108,12 @@ html{
     }
     .card-total-carrinho{
         width: 45%;
+    }
+    .card-ops{
+        width: 90%;
+    }
+    .w-ops{
+        width:100%;
     }
 
 }
