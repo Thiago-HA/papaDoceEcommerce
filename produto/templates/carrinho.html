@@ -10,44 +10,104 @@
 
 {% block 'conteudo' %}
 
-
+<!--
     <div class="container-produtos-carrinho">
-    {% if status == '1' %}
-            <div class="produto-coontainer col-md">
-                <div class="card" style="width: 50rem;">
-                    <h1>Ops! Seu Carrinho está vazio :&#40;</h1>
-                    <a href="{% url 'home' %}" class="btn btn-info">CONTINUAR COMPRANDO</a>
-                    <br>
-                </div>
-            </div>
-    {% else %}
-        
-        <br>
-        <h1>Seu Carrinho:</h1>
-        <div class="selecao-endereco col-md">
-
-
-        {% for carrinho in carrinho %}
-                
+    <div class="container-conteudo-carrinho">
+        {% if status == '1' %}
                 <div class="produto-coontainer col-md">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{carrinho.produto.imagem.url}}" class="card-img-top" alt="...">
-                        <div class="card-body card-info">
-                        <h5 class="card-title ">{{carrinho.produto.titulo}}</h5>
-                        <h1 class="card-subtitle ">R$: {{carrinho.produto.preco}}</h1>
-                        </div>
-                        <a href="{% url 'ver_produto' carrinho.produto.id %}" class="btn btn-info">Ver detalhes</a>
-                        <br>
-                        <a href="{% url 'carrinho_remove' carrinho.id %}" class="btn btn-danger">Remover</a>
+                    <div class="card" style="width: 50rem;">
+                        <h1>Ops! Seu Carrinho está vazio :&#40;</h1>
+                        <a href="{% url 'home' %}" class="btn btn-info">CONTINUAR COMPRANDO</a>
                         <br>
                     </div>
                 </div>
+        {% else %}
         
-        {% endfor %}
+            <br>
+            <h1 class="h1-meu-carrinho">Meu Carrinho:</h1>
+            <br>
+    
+            <div class="selecao-endereco col-md">
+            {% for carrinho in carrinho %}
+        
+                    <div class="produto-coontainer col-md">
+                        <div class="card-carrinho">
+                            <div>
+                                <img src="{{carrinho.produto.imagem.url}}" class="card-img-top-carrinho" alt="...">
+                            </div>
+                            <div class="card-body-carrinho">
+                            <h5 class="card-title-carrinho ">{{carrinho.produto.titulo}}</h5>
+        
+                            </div>
+        
+                            <div class="preco-produto">
+                                <p>Preço do produto:</p>
+                                <h1 class="card-subtitle ">R$: {{carrinho.produto.preco}}</h1>
+                                <a href="{% url 'carrinho_remove' carrinho.id %}" class="btn btn-info carrinho">Remover</a>
+                            </div>
+        
+                        </div>
+                    </div>
+        
+            {% endfor %}
+        </div>
+            Total: {{total}}
+              <a href="{% url 'endereco_entrega' %}" class="btn btn-danger">Continuar</a>
     </div>
-        Total: {{total}}
-
-          <a href="{% url 'endereco_entrega' %}" class="btn btn-danger">Continuar</a>
 
     {% endif %}
+    -->
+
+
+<div class="container-carrinho">
+    <br>
+    <br>
+
+    
+    <div class="container-conteudo-carrinho">
+        <h1>Meu carrinho:</h1>
+        <br>
+        {% for carrinho in carrinho %}
+    
+        <div class="card-carrinho">
+            <img class="img-produto-carrinho" src="{{carrinho.produto.imagem.url}}" class="card-img-top-carrinho" alt="...">
+            <div class="desc-produto-carrinho">
+                <strong>
+                    <p>Produto bem legal da marca bua e da qualidade boa com 100 unidades</p>
+                </strong>
+            </div>
+    
+            <div class="div-preco-produto-carrinho">
+                <p class="preco-produto">Preço do produto:</p>
+                <strong>
+                    <p class="valor-produto-carrinho">R$: {{carrinho.produto.preco}}</p>
+                </strong>
+                <a href="{% url 'carrinho_remove' carrinho.id %}" class="btn btn-info btn-remover-carrinho">Remover</a>
+            </div>
+        </div>
+        {% endfor %}
+        <br>
+    
+        <div class="container-card-total-carrinho">
+            <div class="card-total-carrinho">
+                <p class="preco-produto">Total:</p>
+                <strong >
+                    <p class="valor-produto-carrinho">R$: {{total}}</p>
+                </strong>
+                <a href="{% url 'endereco_entrega' %}" class="btn btn-info carrinho">Continuar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
 {% endblock %}
