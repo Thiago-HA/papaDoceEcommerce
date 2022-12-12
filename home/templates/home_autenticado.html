@@ -10,15 +10,24 @@
 
 {% block 'conteudo' %}
     
+{% include '_carrossel.html' %}
+
+    <br>
 
 
     <main class="main-site">
         <selection class="conteudo-principal">
-          <div class="coluna-filtro">
+
+          
+          <button class="btn-ocultar" id="id-btn-ocultar" type="button" onclick="esconder('filter-colum');"><p class "titulobtn" >Ocultar Filtros</p></button>
+
+         
+
+          <div class="coluna-filtro" id="filter-colum">
             {% block 'filtros' %}
             
-              <form method="POST" action={% url 'filtrar' %}> {% csrf_token %}
-                <h1>Categorias</h1>  
+              <form class="filtrosBK" method="POST" action={% url 'filtrar' %}> {% csrf_token %}
+                <h1>Categorias</h1> <hr> 
                 {% for categoria in categorias %}
 
                     <div class="mb-3 form-check">
@@ -28,7 +37,7 @@
 
                 {% endfor %}
 
-                <h1>Preço</h1>
+                <h1>Preço</h1> <hr>
                 <div class="mb-3 form-check">
                   <input type="checkbox" class="form-check-input" >
                   <label class="form-check-label" for="exampleCheck1">De R$ 1,00 Até R$ 50,00</label>
@@ -49,58 +58,40 @@
                   <input type="checkbox" class="form-check-input">
                   <label class="form-check-label" for="exampleCheck1">Mais de R$ 200,00</label>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-info btn-filtro">Filtrar</button>
               </form>
             
             {% endblock %}
           </div>
-          <nav aria-label="Page navigation example">
-            <ul class="pagination">
-              <li class="page-item">
-                {% if pagina.has_previous %}
-                <a class="page-link" href="?page={{pagina.previous_page_number}}" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-                {% endif %}
-              </li>
-              <li class="page-item"><a class="page-link">{{pagina.number}}</a></li>
-              <li class="page-item">
-                {% if pagina.has_next %}
-                <a class="page-link" href="?page={{pagina.next_page_number}}" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-                {% endif %}
-              </li>
-            </ul>
-        
           <div class="coluna-produtos">
-
+            
               {% for produto in produtos %}
-                  <div class="produto-coontainer col-md">
-                    <div class="card" style="width: 18rem;">
+                  
+                    <div class="card">
                       
                       <div id="div-fav">
-
+                        <a href="{% url 'favoritos_add' produto.id %}" class="button div-fav">
                         
-                          <a href="{% url 'favoritos_add' produto.id %}">
-                            <button type="button" class="btn" id="btn-favorito" onclick="">
-                              <img src="{% static 'home/img/lupa_icon.png' %}" id="icon-favorito">
-                            </button>
-                          </a>
-
-                        </div>
-                        <img src="{{produto.imagem.url}}" class="card-img-top" alt="...">
-                        <div class="card-body card-info">
-                          <h5 class="card-title ">{{produto.titulo}}</h5>
-                          <h1 class="card-subtitle ">R$: {{produto.preco}}</h1>
-                        </div>
-                        <a href="{% url 'ver_produto' produto.id %}" class="btn btn-info">Ver detalhes</a>
-                        <br>
+                          <button type="button" class="btn" id="btn-favorito" onclick="activeBtnFav()">
+                            <img src="{% static 'home/img/icon_heart_fav.png' %}" id="icon-favorito">
+                          </button>
+                        </a>
                       </div>
-                  </div>
+                      <div class="imagem-do-produto">
+                        <img src="{{produto.imagem.url}}" class="card-img-top" alt="...">
+                      </div>
+                        <div class="card-body card-info">
+                          <p class="card-title ">{{produto.titulo}}</p>
+                          <p class="card-subtitle ">R$: {{produto.preco}}</p>
+                        </div>
+                        <div class="btn-ver-detalhes">
+                        <a href="{% url 'ver_produto' produto.id %}" class="btn btn-info">Ver detalhes</a>
+                        </div>
+                        
+                      </div>
+                  
             {% endfor %}
           </div>
-        </nav>
         </selection>
       </main>
 

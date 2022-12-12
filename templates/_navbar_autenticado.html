@@ -41,9 +41,15 @@
               <ul class="navbar-nav me-auto mb-2 mb-lg-0 btn-entrar">
                 <li class="nav-item dropdown">
 
-                        <a class="nav-link dropdown-toggle minha-conta" href="#" id="navbarDropdown-2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Bem vindo(a) {{usuario.apelido}}
-                        </a>
+                      {% if usuario.apelido %}
+                      <a class="nav-link dropdown-toggle minha-conta" href="#" id="navbarDropdown-2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Bem vindo(a) {{usuario.apelido}}
+                      </a>
+                      {% else %}
+                      <a class="nav-link dropdown-toggle minha-conta" href="#" id="navbarDropdown-2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Entrar
+                      </a>
+                      {% endif %}
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                           <li><a class="dropdown-item" href="{% url 'perfil' %}">Perfil</a></li>
                           <li><a class="dropdown-item" href="{% url 'verifica_meus_pedidos' %}">Meus Pedidos</a></li>

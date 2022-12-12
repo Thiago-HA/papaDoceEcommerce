@@ -72,7 +72,7 @@ def ver_produto(request, id):
             'preco' : preco_arredondado,
         }
 
-        return render(request, 'ver_produto_autenticado.html', context)
+        return render(request, 'ver_produto.html', context)
     else:
         produto = Produto.objects.get(id = id)
 
