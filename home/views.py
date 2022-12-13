@@ -125,7 +125,7 @@ def filtrar(request):
 
         return render(request, 'home_autenticado_filtrado.html', context)
     else:
-        return render(request,'')
+        return redirect('home')
 
 def favoritos_add(request, id):
     if request.session.get('usuario'):
