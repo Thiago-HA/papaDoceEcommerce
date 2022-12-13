@@ -44,7 +44,7 @@ def pagina_home(request):
             'produtos': produtos,
         }
 
-        return render(request, 'home.html', context)
+        return render(request, 'home_autenticado.html', context)
 
 def ver_produto(request, id):
     if request.session.get('usuario'):
@@ -88,7 +88,7 @@ def ver_produto(request, id):
         return render(request, 'ver_produto.html', context)
 
 def filtrar(request):
-    
+
     if request.session.get('usuario'):
         categorias = Categoria.objects.all()
         
@@ -157,3 +157,101 @@ def favoritos_remove(request, id):
 
     else:
         return redirect('login')
+
+
+def menu(request, id):
+    if request.session.get('usuario'):
+        usuario = Usuario.objects.get(id = request.session['usuario'])
+        usuariostr = str(usuario.id)
+        produtos = Produto.objects.filter(categoria = id) ## mostra todos os produtos de determminada categoria.
+        categoria = Categoria.objects.get(id = id)
+        categorias = Categoria.objects.all()
+        favoritos = Favorito.objects.raw('SELECT * FROM produto_favorito WHERE user_id = %s ', [usuario.id])
+
+        #carregar a quantidade na lista de favoritos:
+        fav = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_favorito ON produto_produto.id = produto_favorito.prod_id) INNER JOIN usuarios_usuario ON produto_favorito.user_id = usuarios_usuario.id WHERE  produto_favorito.user_id = %s;', [usuariostr])
+        qtd_favoritos = len(fav)
+
+        #carregar a quantidade na lista de Carrinho:
+        carrinho = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_carrinho ON produto_produto.id = produto_carrinho.produto_id) INNER JOIN usuarios_usuario ON produto_carrinho.user_id = usuarios_usuario.id WHERE  produto_carrinho.user_id = %s;', [usuariostr])
+        qtd_carrinho = len(carrinho)
+
+        paginator = Paginator(produtos, 2)
+        pages = request.GET.get('page')
+        pagina = paginator.get_page(pages)
+
+        context = {
+            'categorias': categorias,
+            'produtos': produtos,
+            'favorito' : favoritos,
+            'qtd_favoritos' : qtd_favoritos,
+            'qtd_carrinho' : qtd_carrinho,
+            'usuario' : usuario,
+            'pagina' : pagina,
+            'categoria': categoria,
+        }
+
+        return render(request, 'menu.html', context)
+    else:
+        produtos = Produto.objects.filter(categoria = id) ## mostra todos os produtos de determminada categoria.
+        categorias = Categoria.objects.all()
+
+        context = {
+            'categorias': categorias,
+            'produtos': produtos,
+        }
+
+        return render(request, 'menu.html', context)
+
+def pesquisa(request):
+    if request.session.get('usuario'):
+        usuario = Usuario.objects.get(id = request.session['usuario'])
+        usuariostr = str(usuario.id)
+        descricao = request.POST.get('descricao')
+        descricao_str = str( descricao )
+        print(descricao_str)
+        produtos = Produto.objects.raw("SELECT * FROM produto_produto WHERE titulo LIKE '%%%s%%' OR descricao LIKE '%%%s%%' OR cor LIKE '%%%s%%' OR marca LIKE '%%%s%%' " % (descricao_str,descricao_str,descricao_str,descricao_str)) 
+        categorias = Categoria.objects.all()
+        favoritos = Favorito.objects.raw('SELECT * FROM produto_favorito WHERE user_id = %s ;', [usuario.id])
+
+        #carregar a quantidade na lista de favoritos:
+        fav = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_favorito ON produto_produto.id = produto_favorito.prod_id) INNER JOIN usuarios_usuario ON produto_favorito.user_id = usuarios_usuario.id WHERE  produto_favorito.user_id = %s;', [usuariostr])
+        qtd_favoritos = len(fav)
+
+        #carregar a quantidade na lista de Carrinho:
+        carrinho = Produto.objects.raw('SELECT * FROM (produto_produto INNER JOIN produto_carrinho ON produto_produto.id = produto_carrinho.produto_id) INNER JOIN usuarios_usuario ON produto_carrinho.user_id = usuarios_usuario.id WHERE  produto_carrinho.user_id = %s;', [usuariostr])
+        qtd_carrinho = len(carrinho)
+
+        if produtos:
+            status = '1'
+        else: status = descricao_str
+
+        context = {
+            'categorias': categorias,
+            'produtos': produtos,
+            'favorito' : favoritos,
+            'qtd_favoritos' : qtd_favoritos,
+            'qtd_carrinho' : qtd_carrinho,
+            'usuario' : usuario,
+            'status' : status,
+        }
+        
+        return render(request, 'pesquisa.html', context)
+    else:
+        descricao = request.POST.get('descricao')
+        descricao_str = str( descricao )
+        print(descricao_str)
+        produtos = Produto.objects.raw("SELECT * FROM produto_produto WHERE titulo LIKE '%%%s%%' OR descricao LIKE '%%%s%%' OR cor LIKE '%%%s%%' OR marca LIKE '%%%s%%' " % (descricao_str,descricao_str,descricao_str,descricao_str)) 
+        categorias = Categoria.objects.all()
+
+        if produtos:
+            status = '1'
+        else: status = descricao_str
+        
+        context = {
+            'categorias': categorias,
+            'produtos': produtos,
+            'status' : status,
+        }
+
+        return render(request, 'pesquisa.html', context)

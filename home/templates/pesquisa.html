@@ -1,18 +1,19 @@
-{% extends 'base.html' %}
+{% extends 'base_autenticado.html' %}
 {% load static %}
 
 
 
+
 {% block titulo %} 
-    Home
+    Pesquisa
+    
 {% endblock titulo %}
 
 
 {% block 'conteudo' %}
     
-{% include '_carrossel.html' %}
-
-    <br>
+{% if status == '1' %}
+<br>
 
 
     <main class="main-site">
@@ -94,6 +95,20 @@
           </div>
         </selection>
       </main>
+
+{% else %}
+
+<div class="produto-coontainer col-md">
+    <div class="card" style="width: 50rem;">
+        <h1>Ops! Nenhum produto encontrado para "{{status}}" :&#40;</h1>
+        <a href="{% url 'home' %}" class="btn btn-info">Voltar para Home</a>
+        <br>
+    </div>
+</div>
+
+{% endif %}
+
+    
 
         
 

@@ -1,0 +1,103 @@
+{% extends 'base_autenticado.html' %}
+{% load static %}
+
+
+
+
+{% block titulo %} 
+    {{categoria.nome}}
+    
+{% endblock titulo %}
+
+
+{% block 'conteudo' %}
+    
+
+    <br>
+
+
+    <main class="main-site">
+        <selection class="conteudo-principal">
+
+          
+          <button class="btn-ocultar" id="id-btn-ocultar" type="button" onclick="esconder('filter-colum');"><p class "titulobtn" >Ocultar Filtros</p></button>
+
+         
+
+          <div class="coluna-filtro" id="filter-colum">
+            {% block 'filtros' %}
+            
+              <form class="filtrosBK" method="POST" action={% url 'filtrar' %}> {% csrf_token %}
+                <h1>Categorias</h1> <hr> 
+                {% for categoria in categorias %}
+
+                    <div class="mb-3 form-check">
+                      <input type="checkbox" class="form-check-input" name="{{categoria.id}}" value = "{{categoria.id}}">
+                      <label class="form-check-label" for="exampleCheck1">{{categoria.nome}}</label>
+                    </div>
+
+                {% endfor %}
+
+                <h1>Preço</h1> <hr>
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" >
+                  <label class="form-check-label" for="exampleCheck1">De R$ 1,00 Até R$ 50,00</label>
+                </div>
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" >
+                  <label class="form-check-label" for="exampleCheck1">De R$ 50,00 Até R$ 100,00</label>
+                </div>
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" >
+                  <label class="form-check-label" for="exampleCheck1">De R$ 100,00 Até R$ 150,00</label>
+                </div>
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" >
+                  <label class="form-check-label" for="exampleCheck1">De R$ 150,00 Até R$ 200,00</label>
+                </div>
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input">
+                  <label class="form-check-label" for="exampleCheck1">Mais de R$ 200,00</label>
+                </div>
+                <button type="submit" class="btn btn-info btn-filtro">Filtrar</button>
+              </form>
+            
+            {% endblock %}
+          </div>
+          <div class="coluna-produtos">
+            
+              {% for produto in produtos %}
+                  
+                    <div class="card">
+                      
+                      <div id="div-fav">
+                        <a href="{% url 'favoritos_add' produto.id %}" class="button div-fav">
+                        
+                          <button type="button" class="btn" id="btn-favorito" onclick="activeBtnFav()">
+                            <img src="{% static 'home/img/icon_heart_fav.png' %}" id="icon-favorito">
+                          </button>
+                        </a>
+                      </div>
+                      <div class="imagem-do-produto">
+                        <img src="{{produto.imagem.url}}" class="card-img-top" alt="...">
+                      </div>
+                        <div class="card-body card-info">
+                          <p class="card-title ">{{produto.titulo}}</p>
+                          <p class="card-subtitle ">R$: {{produto.preco}}</p>
+                        </div>
+                        <div class="btn-ver-detalhes">
+                        <a href="{% url 'ver_produto' produto.id %}" class="btn btn-info">Ver detalhes</a>
+                        </div>
+                        
+                      </div>
+                  
+            {% endfor %}
+          </div>
+        </selection>
+      </main>
+
+        
+
+    
+{% endblock %}
+
