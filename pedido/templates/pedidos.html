@@ -6,48 +6,6 @@
 
 {% block 'conteudo' %}
 
-<!--
-
-
-{% if status == '1' %}
-            <div class="produto-coontainer col-md">
-                <div class="card" style="width: 50rem;">
-                    <h1>Ops! Você ainda não possui Pedido :&#40;</h1>
-                    <a href="{% url 'home' %}" class="btn btn-info">CONTINUAR COMPRANDO</a>
-                    <br>
-                </div>
-            </div>
-{% else %}
-
-    <div class="produto-coontainer col-md">
-      {% for produto_pedido in produto_pedido %}
-
-          <div class="card" style="width: 18rem;">
-            <div class="card-body card-info">
-            <h5 class="card-title ">Cidade: {{produto_pedido.pedido_id.cidade}}</h5>
-            <h5 class="card-subtitle ">Rua: {{produto_pedido.pedido_id.rua}}</h5>
-            <h5 class="card-title ">Numero: {{produto_pedido.pedido_id.numero}}</h5>
-            <h5 class="card-subtitle ">Bairro: {{produto_pedido.pedido_id.bairro}}</h5>
-            <h5 class="card-title ">Complemento: {{produto_pedido.pedido_id.complemento}}</h5>
-            <h5 class="card-subtitle ">CEP: {{produto_pedido.pedido_id.cep}}</h5>
-            <h5 class="card-title ">Data Emissão: {{produto_pedido.pedido_id.data_emissao}}</h5>
-            <h5 class="card-subtitle ">Total: {{produto_pedido.pedido_id.total}}</h5>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <img src="{{produto_pedido.produto_id.imagem.url}}" class="card-img-top" alt="...">
-                <div class="card-body card-info">
-                <h5 class="card-title ">{{produto_pedido.produto_id.titulo}}</h5>
-                <h1 class="card-subtitle ">R$: {{produto_pedido.produto_id.preco}}</h1>
-                </div>
-            </div>
-            
-          </div>
-      {% endfor %}
-    </div>
-
-{% endif %}
--->
-
 
 <div class="container-carrinho">
     <br>
