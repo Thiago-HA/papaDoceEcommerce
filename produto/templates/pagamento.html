@@ -9,49 +9,6 @@
 
 
 {% block 'conteudo' %}
-<!--
-<h1>Confirme os dados do pedido para seguir com o pagamento</h1>
-
-<div class="container-detalhes">
-    <h2>Rumo do pedido:</h2>
-    <div class="conteudo-produto">
-        <br>
-        <h3>Produtos </h3>
-        {% for carrinho in carrinho %}
-                
-                <div class="produto-coontainer col-md">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{carrinho.produto.imagem.url}}" class="card-img-top" alt="...">
-                        <div class="card-body card-info">
-                        <h5 class="card-title ">{{carrinho.produto.titulo}}</h5>
-                        <h1 class="card-subtitle ">R$: {{carrinho.produto.preco}}</h1>
-                        </div>
-                        <br>
-                    </div>
-                </div>
-        
-        {% endfor %}
-        <h2>Total: {{total}} </h2>
-
-    </div>
-    <div class="conteudo-endereco">
-        <h3>Endereço de Entrega </h3>
-                <div class="produto-coontainer col-md">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body card-info">
-                            <h1 class="cidade ">Cidade: {{endereco.cidade}}</h1>
-                            <h5 class="rua ">CEP: {{endereco.cep}}</h5>
-                            <h5 class="rua ">Rua: {{endereco.rua}}, {{endereco.numero}} </h5>
-                            <h5 class="rua ">Bairro: {{endereco.bairro}}</h5>
-                        </div>
-                    </div>
-                </div>
-
-    </div>
-</div>
--->
-
-
 
 <div class="container-carrinho">
     <div class="">
@@ -100,7 +57,7 @@
             <div class="element2">
 
                 <div class="valor-e-botao">
-                    <h1 class="total-pagamento">R$: 29,99</h1>
+                    <h1 class="total-pagamento">R$: {{total}}</h1>
                     <!-- Botão do Mercado Livre -->
                     <div class="cho-container">
                     </div>
@@ -116,14 +73,11 @@
                           },
                           render: {
                               container: '.cho-container',
-                              label: 'Finalizar Pedido',
+                              label: 'Finalizar',
                           }
                         });
                       </script>
                 </div>
-                
-                
-                
                 
             </div>
         </div>

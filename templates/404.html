@@ -1,4 +1,5 @@
 {% extends 'base_autenticado.html' %}
+{% load static %}
 
 {% block titulo %}
 Erro 404
@@ -6,6 +7,18 @@ Erro 404
 
 {% block 'conteudo' %}
 
-<img src="https://img.freepik.com/vetores-premium/pagina-de-destino-do-erro-404-com-um-arquivo-em-design-plano_249405-162.jpg?w=2000" alt=""></img>
+<br>
+<br>
+<div class="produto-coontainer col-md w-ops">
+    <div class="card-ops" style="padding: 0;">
+      <br>
+      <br>
+    <div class="card-ops" style="padding: 0;">
+        <h3>Ops! ERRO :&#40;</h3>
+        <H1><STRONG>4 0 4</STRONG></H1>
+        <a href="{% url 'home' %}" class="btn btn-info">Voltar ao Site</a>
+        <br>
+    </div>
+</div>
 
 {% endblock %}

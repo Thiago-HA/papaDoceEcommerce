@@ -98,9 +98,13 @@
 
 {% else %}
 
-<div class="produto-coontainer col-md">
-    <div class="card" style="width: 50rem;">
-        <h1>Ops! Nenhum produto encontrado para "{{status}}" :&#40;</h1>
+<br>
+<br>
+<div class="produto-coontainer col-md w-ops">
+    <div class="card-ops" style="padding: 0;">
+      <br>
+      <br>
+        <h3>Ops! Nenhum produto encontrado para <strong>"{{status}}"</strong> :&#40;</h3>
         <a href="{% url 'home' %}" class="btn btn-info">Voltar para Home</a>
         <br>
     </div>
