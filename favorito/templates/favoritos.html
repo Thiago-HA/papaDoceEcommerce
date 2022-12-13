@@ -3,49 +3,68 @@
 
 
 
+
 {% block titulo %} 
     Meus produtos Favoritos
 {% endblock titulo %}
 
 
 {% block 'conteudo' %}
-    
-    {% if status == '1' %}
-            <div class="produto-coontainer col-md">
-                <div class="card" style="width: 50rem;">
-                    <h1>Ops! Sua lista está vazia :&#40;</h1>
-                    <a href="{% url 'home' %}" class="btn btn-info">CONTINUAR COMPRANDO</a>
-                    <br>
-                </div>
-            </div>
-        {% else %}
+
+        <div class="container-carrinho">
+            <br>
+            <br>
+            {% if status == '1' %}
+                        <div class="produto-coontainer col-md w-ops">
+                            <div class="card-ops">
+                                <h1>Ops! Sua Lista de Favoritos está vazia :&#40;</h1>
+                                <a href="{% url 'home' %}" class="btn btn-info">CONTINUAR COMPRANDO</a>
+                                <br>
+                            </div>
+                        </div>
+            {% else %}
         
-        {% for fav in fav %}
-            <div class="produto-coontainer col-md">
-                <div class="card" style="width: 18rem;">
-                
-                <a href="{% url 'favoritos_remove' fav.id %}" class="button div-fav" id="div-fav">
-                    
-                    <button type="button" class="btn" id="btn-favorito">
-                    <img src="{% static 'home/img/lupa_icon.png' %}" id="icon-favorito"> 
-                    </button>
-                </a>
-                    <img src="{{fav.imagem.url}}" class="card-img-top" alt="...">
-                    <div class="card-body card-info">
-                    <h5 class="card-title ">{{fav.titulo}}</h5>
-                    <h1 class="card-subtitle ">R$: {{fav.preco}}</h1>
+            
+            <div class="container-conteudo-carrinho">
+                <h1>Produtos que você gostou:</h1>
+                <br>
+                {% for fav in fav %}
+            
+                <div class="card-carrinho">
+                    <img class="img-produto-carrinho" src="{{fav.imagem.url}}" class="card-img-top-carrinho" alt="...">
+                    <div class="desc-produto-carrinho">
+                        <strong>
+                            <p>{{fav.titulo}}</p>
+                        </strong>
                     </div>
-                    <a href="{% url 'ver_produto' fav.id %}" class="btn btn-info">Ver detalhes</a>
-                    <br>
+            
+                    <div class="div-preco-produto-carrinho">
+                        <p class="preco-produto">Preço: </p>
+                        <strong>
+                            <p class="valor-produto-carrinho">R$: {{fav.preco}}</p>
+                        </strong>
+                        <div class="btns-favorito">
+                            <a href="{% url 'ver_produto' fav.id %}" class="btn btn-info">Ver detalhes</a>
+                            <a href="{% url 'favoritos_remove' fav.id %}" class="btn btn-info btn-remover-carrinho">Remover</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <br>
+            
+                <div class="container-card-total-carrinho">
+                        <a href="{% url 'home' %}" class="btn btn-info carrinho">CONTINUAR COMPRANDO</a>
+                    </div>
                 </div>
             </div>
-    
-        {% endfor %}
-
-    {% endif %}
-
-
-         
+        </div>
+        
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        {% endif %}
 
     
 {% endblock %}

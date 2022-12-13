@@ -9,6 +9,7 @@
 
 
 {% block 'conteudo' %}
+<!--
 <h1>Confirme os dados do pedido para seguir com o pagamento</h1>
 
 <div class="container-detalhes">
@@ -48,25 +49,100 @@
 
     </div>
 </div>
+-->
 
-<!-- Botão do Mercado Livre -->
-<div class="cho-container">
+
+
+<div class="container-carrinho">
+    <div class="">
+        <br>
+        <h1>🔽 <strong>Confira seu Pedido antes de seguir para o Pagamento</strong> 🔽</h1>
+        <br>
+        <br>
+        <br>
+
+        <div class="container-element">
+            <h2 class="h2-pagamento">Endereço de Entrega: </h2>
+            <div class="element">
+            
+                <div class="end-pagamento ">
+                    <h1 class="cidade-pagamento ">{{endereco.cidade}}</h1>
+                    <h5 class="rua-pagamento ">CEP: {{endereco.cep}}</h5>
+                    <h5 class="rua-pagamento ">Rua: {{endereco.rua}}, {{endereco.numero}} </h5>
+                    <h5 class="rua-pagamento ">Bairro: {{endereco.bairro}}</h5>
+                </div>
+            </div>
+            <hr>
+           
+
+            <h2 class="h2-pagamento">Produtos: </h2>
+            <div class="element2">
+                
+                {% for carrinho in carrinho %}
+                
+                <div class="container-prod">
+                    
+                    <img src="{{carrinho.produto.imagem.url}}" class="card-img-top-pagamento" alt="..." id="img-pagamento">
+                    <div class="precoo">
+                        <h5 class="card-title-pagamento ">{{carrinho.produto.titulo}}</h5>
+                        <h1 class="card-subtitle-pagamento ">R$: {{carrinho.produto.preco}}</h1>
+                    </div> 
+                      
+                </div>
+                <br> 
+        
+        {% endfor %}
+            </div>
+            <hr>
+          
+
+            <h2 class="h2-pagamento">Total:</h2>
+            <div class="element2">
+
+                <div class="valor-e-botao">
+                    <h1 class="total-pagamento">R$: 29,99</h1>
+                    <!-- Botão do Mercado Livre -->
+                    <div class="cho-container">
+                    </div>
+                    
+                      <script>
+                        const mp = new MercadoPago('TEST-99afa9d8-7aa3-443b-90bc-c71e932c4898', {
+                          locale: 'pt-BR'
+                        });
+                    
+                        mp.checkout({
+                          preference: {
+                              id: '{{preference}}'
+                          },
+                          render: {
+                              container: '.cho-container',
+                              label: 'Finalizar Pedido',
+                          }
+                        });
+                      </script>
+                </div>
+                
+                
+                
+                
+            </div>
+        </div>
+
+    </div>
 </div>
-  
-  <script>
-    const mp = new MercadoPago('TEST-99afa9d8-7aa3-443b-90bc-c71e932c4898', {
-      locale: 'pt-BR'
-    });
-  
-    mp.checkout({
-      preference: {
-          id: '{{preference}}'
-      },
-      render: {
-          container: '.cho-container',
-          label: 'Finalizar Pedido',
-      }
-    });
-  </script>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
 
 {% endblock %}
+

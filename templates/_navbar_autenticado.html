@@ -1,7 +1,7 @@
 {% load static %}
 <div class="container-nav">
     <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'home/img/logoPapaDoce.svg' %}" id="logo-papa"></a>
-    <nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar navbar-dark">
       <div class="container-fluid">
 
         <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'home/img/logoPapaDoce.svg' %}" id="logo-papa2"></a>
@@ -65,7 +65,7 @@
                   <img src="{% static 'home/img/favoritos_icon.svg' %}" id="icon-fav">
                   {% if qtd_favoritos > 0 %}
                   <div class="bola-number">
-                    <span class="number badge">{{qtd_favoritos}}</span>
+                    <span class="number">{{qtd_favoritos}}</span>
                   </div>
                 {% endif %}
                 </div>

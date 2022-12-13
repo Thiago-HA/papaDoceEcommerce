@@ -8,6 +8,7 @@
 {% endblock titulo %}
 
 
+
 {% block 'conteudo' %}
 
 {% if resposta == '1' %}
@@ -26,7 +27,7 @@
                                 Preencher todos os campos obrigatórios.
                         </div>
                     </div>
-            {% endif %}
+{% endif %}
 
 <!-- Modal Adicionar novo endereco-->
 <div class="modal fade" id="model-adicionar-endereco" tabindex="-1" aria-labelledby="model-adicionar-endereco" aria-hidden="true">
@@ -59,6 +60,7 @@
 </div>
 
 <br>
+<!--
     <h1>Selecione o Endereço:</h1>
 
     <div class="container-produtos-carrinho">
@@ -116,4 +118,57 @@
         
             <button class="btn btn-success profile-button" type="submit">Seguir para pagamento</button>
         </form>
+        -->
+        <div class="container-carrinho">
+            <br>
+        
+            
+            <div class="container-conteudo-carrinho">
+                <h1>Selecione um Endereco de Entrega: </h1>
+                <br>
+            <form name="form" id="form" method="post" action="{% url 'pagamento' %}">
+                {% csrf_token %}
+
+            <div class="container-end enderecos">
+                {% for endereco in endereco %}
+                    <div class=" card-carrinho-endereco card-enderecos ">
+                        <div class="card-body card-info">
+                            <h1 class="cidade ">{{endereco.endereco.cidade}}</h1>
+                            <h5 class="rua ">CEP: {{endereco.endereco.cep}}</h5>
+                            <h5 class="rua ">Rua: {{endereco.endereco.rua}}, {{endereco.endereco.numero}} </h5>
+                            <h5 class="rua ">Bairro: {{endereco.endereco.bairro}}</h5>
+                        </div>
+                        <br>
+                
+                            <INPUT TYPE="RADIO" NAME="endereco" ID="radio" VALUE="{{endereco.endereco.id}}" CHECKED>
+                
+                        <br>
+                    </div>
+                {% endfor %}
+            </div>
+                    
+
+            <div class="container-card-total-carrinho">
+                <div class="card-total-carrinho">
+                    <p class="preco-produto">Total:</p>
+                    <strong >
+                        <p class="valor-produto-carrinho">R$: {{total}}</p>
+                    </strong>
+                    <button class="btn btn-info carrinho " type="submit">Seguir para pagamento </button>
+                </div>
+            </div>
+            
+            </form>
+            
+                
+            </div>
+        </div>
+        
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+
 {% endblock %}

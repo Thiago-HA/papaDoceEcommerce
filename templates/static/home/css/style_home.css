@@ -103,6 +103,10 @@ body{
     color: aliceblue;
 }
 
+.number{
+    font-size: 1.75rem;
+}
+
 
 /**************************/
 .d-flex{
@@ -124,6 +128,7 @@ body{
 /*container do menu navbar*/
 .container-nav {
     box-shadow: 7px 5px 13px 9px rgb(0 0 0 / 9%);
+    background-color: #3095cf;
 }
 
 /*Altera container que contem o menu baixo e o menu cima*/

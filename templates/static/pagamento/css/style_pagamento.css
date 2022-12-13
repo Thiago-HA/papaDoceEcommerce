@@ -1,0 +1,153 @@
+html{
+    /* a cada 1 rem será considerado 10px */
+    font-size: 62.5%;
+}
+
+.container-element{
+    background-color: #dfdfdf59;
+    border: solid 2px #c7c7c7;
+    border-radius: 12px;
+    box-shadow: 3px 5px 1px #00000014;
+}
+.element{
+    margin: 1.5%;
+    display: flex;
+    flex-direction: row;
+    alingn-items: center;
+    justify-content: center;
+}
+.element2{
+    margin: 1.5%;
+}
+.element3{
+    margin: 1.5%;
+    display: flex;
+    flex-direction: row;
+    alingn-items: center;
+    justify-content: center;
+}
+
+.h2-pagamento{
+    padding: 3px;
+    color:#48aeff;
+    box-shadow: -2px 1px 1px rgb(0 0 0 / 9%);
+}
+.container-prod{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-around;
+    gap: 70%;
+}
+
+.cho-container button{
+    width: 200px;
+    height: 50px;
+    font-size: 2rem;
+    
+}
+.valor-e-botao{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-around;
+    gap: 55%;
+}
+
+#img-pagamento{
+    width:101px;
+    height:65px;
+    border-radius: 9px;
+}
+
+.precoo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+}
+
+.card-title-pagamento{
+    font-size: 1.4rem;
+}
+.card-subtitle-pagamento{
+    font-size: 3rem;
+}
+
+.rua-pagamento{
+    font-size: 1.3rem;
+    
+}
+.cidade-pagamento{
+    font-size: 2.2rem;
+}
+.end-pagamento{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 7%;
+    width: 100%;
+}
+
+
+
+@media (max-width: 992px){
+    .valor-e-botao{
+        gap: 55%;
+
+    }
+    .container-prod{
+        gap: 55%;
+
+    }
+
+
+}
+
+@media (max-width: 900px){
+    .valor-e-botao{
+        gap: 40%;
+
+    }
+    .container-prod{
+        gap: 40%;
+
+    }
+
+
+}
+@media (max-width: 550px){
+    .valor-e-botao{
+        gap: 30%;
+
+    }
+    .container-prod{
+        gap: 55%;
+
+    }
+    html{
+        /* a cada 1 rem será considerado 10px */
+        font-size: 50%;
+    }
+
+
+}
+
+@media (max-width: 550px){
+    .valor-e-botao{
+        gap: 10%;
+
+    }
+    .container-prod{
+        gap: 55%;
+
+    }
+    html{
+        /* a cada 1 rem será considerado 10px */
+        font-size: 50%;
+    }
+
+
+}

@@ -4,11 +4,11 @@ html{
     font-size: 62.5%;
 }
 
-
 .img-produto-carrinho{
     width: 162px;
     height: 100px;
 }
+
 
 .container-conteudo-carrinho{
     display: flex;
@@ -95,7 +95,6 @@ html{
         font-size: 45%;
     }
 }
-
 
 @media (max-width: 750px) {
     html{

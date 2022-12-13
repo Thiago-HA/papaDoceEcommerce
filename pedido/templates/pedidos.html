@@ -6,6 +6,9 @@
 
 {% block 'conteudo' %}
 
+<!--
+
+
 {% if status == '1' %}
             <div class="produto-coontainer col-md">
                 <div class="card" style="width: 50rem;">
@@ -43,5 +46,65 @@
     </div>
 
 {% endif %}
+-->
+
+
+<div class="container-carrinho">
+    <br>
+    <br>
+    {% if status == '1' %}
+            <div class="produto-coontainer col-md w-ops">
+                <div class="card" style="width: 50rem;">
+                    <h1>Ops! Você ainda não possui Pedido :&#40;</h1>
+                    <a href="{% url 'home' %}" class="btn btn-info">CONTINUAR COMPRANDO</a>
+                    <br>
+                </div>
+            </div>
+{% else %}
+    
+
+    
+    <div class="container-conteudo-carrinho">
+        <h1>Meus Pedidos:</h1>
+        <br>
+        {% for produto_pedido in produto_pedido %}
+    
+        <div class="card-carrinho">
+            <img class="img-produto-carrinho" src="{{produto_pedido.produto_id.imagem.url}}" class="card-img-top-carrinho" alt="...">
+            <div class="desc-produto-carrinho">
+                
+                <p>{{produto_pedido.produto_id.titulo}}s</p>
+                
+            </div>
+    
+            <div class="div-preco-produto-carrinho">
+                <p class="preco-produto">Preço:</p>
+                <strong>
+                    <p class="valor-produto-carrinho">R$: {{produto_pedido.pedido_id.total}}</p>
+                </strong>
+
+                <p>{{produto_pedido.pedido_id.data_emissao}}</p>
+
+                <a href="#" class="btn btn-info">Ver detalhes</a>
+
+                
+            </div>
+        </div>
+        {% endfor %}
+        <br>
+    
+        
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endif %}
+
+
+
 
 {% endblock %}
