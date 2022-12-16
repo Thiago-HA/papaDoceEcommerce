@@ -3,7 +3,7 @@
 
 
 
-{% block titulo %} 
+{% block titulo %}
     Identificação
 {% endblock titulo %}
 
@@ -64,9 +64,9 @@
     <h1>Selecione o Endereço:</h1>
 
     <div class="container-produtos-carrinho">
-        
+
         <div class="selecao-endereco col-md">
-        
+
             <form name="form-endereco" id="form-endereco" method="post" action="{% url 'endereco_add_carrinho' %}">
                 {% csrf_token %}
             </form>
@@ -85,21 +85,21 @@
                     <form name="form" id="form" method="post" action="{% url 'pagamento' %}">
                         {% csrf_token %}
 
-                        <INPUT TYPE="RADIO" NAME="endereco" VALUE="{{endereco.endereco.id}}" CHECKED> 
-                    
+                        <INPUT TYPE="RADIO" NAME="endereco" VALUE="{{endereco.endereco.id}}" CHECKED>
+
                     <br>
                 </div>
             </div>
-        
+
         {% endfor %}
-            
+
 
         <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#model-adicionar-endereco">Novo Endereco</button>
         </div>
-        
+
 
         {% for carrinho in carrinho %}
-                
+
                 <div class="produto-coontainer col-md">
                     <div class="card" style="width: 18rem;">
                         <img src="{{carrinho.produto.imagem.url}}" class="card-img-top" alt="...">
@@ -112,20 +112,24 @@
                         <br>
                     </div>
                 </div>
-        
+
         {% endfor %}
             Total: {{total}}
-        
+
             <button class="btn btn-success profile-button" type="submit">Seguir para pagamento</button>
         </form>
         -->
         <div class="container-carrinho">
             <br>
-        
-            
+
+
             <div class="container-conteudo-carrinho">
                 <h1>Selecione um Endereco de Entrega: </h1>
                 <br>
+            <form name="form-endereco" id="form-endereco" method="post" action="{% url 'endereco_add_carrinho' %}">
+                {% csrf_token %}
+            </form>
+            <br>
             <form name="form" id="form" method="post" action="{% url 'pagamento' %}">
                 {% csrf_token %}
 
@@ -139,14 +143,17 @@
                             <h5 class="rua ">Bairro: {{endereco.endereco.bairro}}</h5>
                         </div>
                         <br>
-                
+
                             <INPUT TYPE="RADIO" NAME="endereco" ID="radio" VALUE="{{endereco.endereco.id}}" CHECKED>
-                
+
                         <br>
                     </div>
                 {% endfor %}
             </div>
-                    
+            <br>
+
+            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#model-adicionar-endereco">Novo Endereco</button>
+
 
             <div class="container-card-total-carrinho">
                 <div class="card-total-carrinho">
@@ -157,13 +164,13 @@
                     <button class="btn btn-info carrinho " type="submit">Seguir para pagamento </button>
                 </div>
             </div>
-            
+
             </form>
-            
-                
+
+
             </div>
         </div>
-        
+
         <br>
         <br>
         <br>

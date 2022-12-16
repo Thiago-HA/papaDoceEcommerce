@@ -12,7 +12,7 @@
         <div class="collapse navbar-collapse menu-principal" id="navbarSupportedContent">
           <div class="manu-principal-cima">
             <form class="d-flex" method="POST" action={% url 'pesquisa' %}> {% csrf_token %}
-              <input class="form-control me-2" type="search" placeholder="O que voçê procura?" aria-label="Search" name="descricao" >
+              <input class="form-control me-2" type="search" placeholder="O que você procura?" aria-label="Search" name="descricao" >
               <button class="btn btn-light" type="submit"><img src="{% static 'home/img/lupa_icon.png' %}" id="icon-lupa"></button>
             </form>
 
@@ -32,7 +32,7 @@
                 <a class="nav-link active" aria-current="page" href="{% url 'menu' 3 %}">Doces</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'menu' 4 %}">Embalages</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'menu' 4 %}">Embalagens</a>
               </li>
             </ul>
             
